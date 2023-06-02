@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_technique1/models/comment.dart';
+import 'package:test_technique1/widgets/comment_ui.dart';
 
 class PostDetailScreen extends StatelessWidget {
   static const routeName='/postScreen';
@@ -13,14 +14,18 @@ class PostDetailScreen extends StatelessWidget {
     final postId=routeArgs['id'];
     final postTitle=routeArgs['title'];
     final postBody=routeArgs['body'];
-    final comments=routeArgs['comments']  as List;
+    final comments=routeArgs['comments'] as List ;
+    
+    
+    
+    
 
 
     return Scaffold(appBar: AppBar(
 
-      title: Text(postTitle),
+      title: Text("Post Detail"),
       
-
+backgroundColor: Colors.pink,
 
 
     ),
@@ -29,60 +34,60 @@ class PostDetailScreen extends StatelessWidget {
       width: MediaQuery.of(context).size.width*0.8,
       margin: EdgeInsets.symmetric(vertical: 20 ,horizontal:MediaQuery.of(context).size.width*0.1 ),
       decoration: BoxDecoration(
-        color: Colors.pink.withOpacity(0.35)
-
-      ),
+        color: Colors.pink.withOpacity(0.5)),
       child: Stack(children: [
         Align(alignment: Alignment.topCenter,
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children:[Container(
+            height: 40,
+            width: 250,
+            
             margin: EdgeInsets.only(top: 20,left: 20),
-            
-            
-            child: Text(postTitle)),Container(
-
-              margin: EdgeInsets.only(top:20 ,right: 20),
+            child: Text(postTitle,style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontSize: 14),)),Container(
+              margin: EdgeInsets.only(top:10 ,right: 10),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.pink,
               ),
-              
-              
+              height: 40,
+                width: 40,
               child: Icon(Icons.bookmark,color: Colors.white,))]),),
-          Align(alignment: Alignment.center,
-          child: Container(child: Text('body'),),
+          Align(alignment: Alignment.bottomCenter,
+          child: Container(
+            padding: EdgeInsets.all(20),
+            
+            child: Text(postBody,style: TextStyle(fontSize: 13),)),),
 
+            
+            
+            
+            
+            
+            
+            ]
+          ),),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10,horizontal:20 ),
+            height: MediaQuery.of(context).size.height*0.5,
+          width: MediaQuery.of(context).size.width*0.7,
           
-          
-          
+          child: ListView.builder(
+            itemCount:comments.length ,
+            itemBuilder: (BuildContext context, int index) {
+              final comment=comments[index];
+              return CommentUi(comment.name, comment.body);
+            },
+          ),
+
+
+
           
           )
-
-
-
-
-
-
-
-      ]),
+          
+          
+          ]
+          )
+          );
 
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      ),
-      Container()
-
-
-
-
-
-    ],));
-  }
-}
+  }}

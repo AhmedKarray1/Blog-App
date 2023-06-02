@@ -12,6 +12,7 @@ class OriginalPostListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loadedPosts=Provider.of<Posts>(context);
+    // print(loadedPosts.posts[0].comments.length);
     return Scaffold(body:
     Column(children: [
           

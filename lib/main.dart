@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  
-    MultiProvider(providers: [ChangeNotifierProvider(create: (ctx)=>Comments()),
+    MultiProvider(providers: [
+      // ChangeNotifierProvider(create: (ctx)=>Comments()),
     ChangeNotifierProvider(create: (ctx)=>Posts())]
     ,child: MaterialApp(title: "App",
     home: MainScreen(),

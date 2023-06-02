@@ -15,10 +15,12 @@ class PostUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
+
+   
     return GestureDetector(
       onTap: (){
         Navigator.of(context).pushNamed(PostDetailScreen.routeName,arguments: {
-          'id':id,'title':title,'body':body,'comment':comments,
+          'id':id,'title':title,'body':body,'comments':comments,
 
 
 

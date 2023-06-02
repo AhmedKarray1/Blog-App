@@ -45,7 +45,7 @@ class Posts with ChangeNotifier {
             comments: _comments));
       }
       _posts = loadedPosts;
-      print(_posts[4].title);
+      print(_posts[4].comments[0].name);
     } catch (error) {
       print(error);
     }
