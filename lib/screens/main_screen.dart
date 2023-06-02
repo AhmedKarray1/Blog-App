@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_technique1/Providers/posts.dart';
-import 'package:test_technique1/widgets/create_post.dart';
-import 'package:test_technique1/widgets/post_ui.dart';
+import 'package:test_technique1/screens/offline_post_list_screen.dart';
+import 'package:test_technique1/screens/original_post_list_screen.dart';
+
+
 
 class MainScreen extends StatefulWidget {
   @override
@@ -42,37 +44,38 @@ Provider.of<Posts>(context).fetchPosts().then((value) {
     final loadedPosts=Provider.of<Posts>(context);
     loadedPosts.fetchPosts();
     
-    return Scaffold(
-      appBar:AppBar(
-        backgroundColor: Colors.pink,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+       
+        appBar:AppBar(
+          backgroundColor: Colors.pink,
+          
+          title: 
         
-        title: 
-      
-      
-      Row(mainAxisAlignment: MainAxisAlignment.center,
-        children: [Icon(Icons.article),
-        SizedBox(width: 20,),
-          Text("Blog App"),
-        ],
-      ),
-      
-      
-      ) ,
-      body:_isLoading?Center(child: CircularProgressIndicator(),):
-      Column(children: [
-        Row(children: [
-        Icon(Icons.wifi,color: Colors.black,size: 30,),SizedBox(width: 20,),
-        Icon(Icons.delete,color: Colors.black,size: 30,)
+        
+        Row(mainAxisAlignment: MainAxisAlignment.center,
+          children: [Icon(Icons.article),
+          SizedBox(width: 20,),
+            Text("Blog App"),
+          ],
+        ),
+        bottom: TabBar(tabs: [Icon(Icons.wifi_off_sharp,color: Colors.white,size: 50,),
+        Icon(Icons.wifi,color: Colors.white,size: 50,),]),
+        
+        
+        ) ,
+        body:_isLoading?Center(child: CircularProgressIndicator(),):
+        TabBarView(children: [
+          OfflinePostListScreen(),OriginalPostListScreen(),
+        
+
+          
 
 
-      ],),
-        CreatePost(),
-        Container(height: 360,
-        width: double.infinity,
-
-        child: 
-        ListView.builder(itemBuilder:((context, index) => PostUi("Post ${index+1}")) ,itemCount:loadedPosts.posts.length ,),
-        )]));
+        ])
+          ),
+    );
       
        
 

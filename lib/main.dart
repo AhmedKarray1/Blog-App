@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:test_technique1/Providers/comments.dart';
 import 'package:test_technique1/Providers/posts.dart';
 import 'package:test_technique1/screens/main_screen.dart';
+import 'package:test_technique1/screens/post_detail_screen.dart';
 
 void main()
 {
@@ -19,7 +20,27 @@ class MyApp extends StatelessWidget {
     MultiProvider(providers: [ChangeNotifierProvider(create: (ctx)=>Comments()),
     ChangeNotifierProvider(create: (ctx)=>Posts())]
     ,child: MaterialApp(title: "App",
-    home: MainScreen(),)
+    home: MainScreen(),
+
+    routes: {
+      PostDetailScreen.routeName:(ctx)=>PostDetailScreen()
+
+
+
+
+
+
+
+
+    },
+
+
+
+
+
+
+
+    )
     
     
     

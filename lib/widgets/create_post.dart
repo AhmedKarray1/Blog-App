@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:test_technique1/screens/post_detail_screen.dart';
 
 class CreatePost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {print("baklewa");},
+      onTap: () {
+
+        // Navigator.of(context).pushNamed(PostScreen.routeName);
+
+
+
+      },
       child: Container(
         margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
         width: MediaQuery.of(context).size.width * 0.8,
@@ -35,7 +42,7 @@ class CreatePost extends StatelessWidget {
                 
               ),
               SizedBox(width: 10,),
-              Text("Create new post",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),)
+              Text("Create new post",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),)
     
             ],
           ),
