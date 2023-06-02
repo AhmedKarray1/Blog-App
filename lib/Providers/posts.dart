@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:test_technique1/models/comment.dart';
@@ -36,8 +37,7 @@ class Posts with ChangeNotifier {
               name: obj["name"],
               body: obj["body"],
               postId: obj["postId"],
-              email: obj["email"]
-              ));
+              email: obj["email"]));
         }
         _comments = loadedComment;
         loadedPosts.add(Post(
@@ -47,7 +47,6 @@ class Posts with ChangeNotifier {
             comments: _comments));
       }
       _posts = loadedPosts;
-      print(_posts[4].comments[0].name);
     } catch (error) {
       print(error);
     }
@@ -61,25 +60,57 @@ class Posts with ChangeNotifier {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
     final existingPostIndex =
         _posts.indexWhere((element) => (element.id).toString() == id);
-        var existingPost=_posts[existingPostIndex];
-        _posts.removeWhere((post)=> (post.id).toString()==id);
-notifyListeners();
-final response= await http.delete(url);
-if(response.statusCode>=400)
-{_posts.insert(existingPostIndex, existingPost);
-notifyListeners();
- throw HttpException('could not delete post');
-}
-existingPost=null;
-
-
-
+    var existingPost = _posts[existingPostIndex];
+    _posts.removeWhere((post) => (post.id).toString() == id);
+    notifyListeners();
+    final response = await http.delete(url);
+    if (response.statusCode >= 400) {
+      _posts.insert(existingPostIndex, existingPost);
+      notifyListeners();
+      throw HttpException('could not delete post');
+    }
+    existingPost = null;
   }
 
-List<Post> get savedPosts{
-return _posts.where((element) => element.isSaved).toList();
-}
+  List<Post> get savedPosts {
+    return _posts.where((element) => element.isSaved).toList();
+  }
 
+  Post findById(int id) {
+    return _posts.firstWhere((post) => post.id == id);
+  }
+  //  void toggleSavedStatus(int id) {
 
+  //   notifyListeners();
+  // }
+  Future<void> createPost(Post post) async {
+    final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
+    try {
+      final response = await http.post(url,
+          body: json.encode({'title': post.title, 'body': post.body}));
+      final newPost =
+          Post(id: _posts.length, title: post.title, body: post.body);
+      _posts.add(newPost);
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
+  }
 
+  Future<void> updatePost(int id, Post newPost) async {
+    final postIndex = _posts.indexWhere((post) => post.id == id);
+    if (postIndex >= 0) {
+      final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
+      await http.patch(url,
+          body: json.encode({
+            'title': newPost.title,
+            'Body': newPost.body,
+          }));
+      _posts[postIndex] = newPost;
+      notifyListeners();
+    } else {
+      print('not existing post');
+    }
+  }
 }

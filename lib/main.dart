@@ -8,51 +8,25 @@ import 'package:test_technique1/screens/comments_screen.dart';
 import 'package:test_technique1/screens/main_screen.dart';
 import 'package:test_technique1/screens/post_detail_screen.dart';
 
-void main()
-{
-runApp(MyApp());
-
+void main() {
+  runApp(MyApp());
 }
-class MyApp extends StatelessWidget {
- 
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  
-    MultiProvider(providers: [
-      ChangeNotifierProvider(create: (ctx)=>Post()),
-    ChangeNotifierProvider(create: (ctx)=>Posts())]
-    ,child: MaterialApp(title: "App",
-    home: MainScreen(),
-
-    routes: {
-      PostDetailScreen.routeName:(ctx)=>PostDetailScreen(),
-      CommentsScreen.routeName:(ctx)=>CommentsScreen()
-
-
-
-
-
-
-
-
-    },
-
-
-
-
-
-
-
-    )
-    
-    
-    
-    
-    
-
-    )
-
-    ;
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (ctx) => Post()),
+          ChangeNotifierProvider(create: (ctx) => Posts())
+        ],
+        child: MaterialApp(
+          title: "App",
+          home: MainScreen(),
+          routes: {
+            PostDetailScreen.routeName: (ctx) => PostDetailScreen(),
+            CommentsScreen.routeName: (ctx) => CommentsScreen()
+          },
+        ));
   }
 }
