@@ -35,7 +35,9 @@ class Posts with ChangeNotifier {
               id: obj["id"],
               name: obj["name"],
               body: obj["body"],
-              postId: obj['postId']));
+              postId: obj["postId"],
+              email: obj["email"]
+              ));
         }
         _comments = loadedComment;
         loadedPosts.add(Post(
@@ -73,4 +75,11 @@ existingPost=null;
 
 
   }
+
+List<Post> get savedPosts{
+return _posts.where((element) => element.isSaved).toList();
+}
+
+
+
 }

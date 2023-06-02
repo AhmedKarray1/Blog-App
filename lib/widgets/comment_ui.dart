@@ -9,9 +9,9 @@ class CommentUi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140,
+      height: 130,
       width:double.infinity ,
-      margin: EdgeInsets.all( 10),
+      margin: EdgeInsets.all( 13),
       decoration:BoxDecoration(
         borderRadius: BorderRadius.circular(40),
         color: Colors.pink.withOpacity(0.2),
@@ -24,6 +24,8 @@ class CommentUi extends StatelessWidget {
         
         
         child: Text(name,style: TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 16
+        
         ),
         textAlign: TextAlign.center,
         ),),
@@ -31,13 +33,20 @@ class CommentUi extends StatelessWidget {
       
       
       ),
+     
       Align(alignment: Alignment.center,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical:40 ,horizontal:10 ),
-        height: 30,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10)
+
+        ),
+        margin: EdgeInsets.only(top:40,
+        bottom: 10,left:15,right: 15),
+        height: 80,
+        
         width: double.infinity,
         
-        child: Text(commentBody)),)
+        child: SingleChildScrollView(child: Text(commentBody,style: TextStyle(fontSize: 14 ),))),)
       
       
       ],

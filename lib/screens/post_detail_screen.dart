@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_technique1/models/comment.dart';
+import 'package:test_technique1/screens/comments_screen.dart';
 import 'package:test_technique1/widgets/comment_ui.dart';
 
 class PostDetailScreen extends StatelessWidget {
@@ -15,7 +16,8 @@ class PostDetailScreen extends StatelessWidget {
     final postTitle=routeArgs['title'];
     final postBody=routeArgs['body'];
     final comments=routeArgs['comments'] as List ;
-    
+    print(comments[0]);
+   
     
     
     
@@ -66,23 +68,52 @@ backgroundColor: Colors.pink,
             
             ]
           ),),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10,horizontal:20 ),
-            height: MediaQuery.of(context).size.height*0.5,
-          width: MediaQuery.of(context).size.width*0.7,
+          Column(
+            children: [CommentUi(comments[0].email.substring(0,comments[0].email.indexOf('@')), comments[0].body),
+            CommentUi(comments[1].email.substring(0,comments[1].email.indexOf('@')), comments[1].body),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+
+              
+              child: ElevatedButton.icon(onPressed: (){
+                Navigator.of(context).pushNamed(CommentsScreen.routeName,arguments: comments);
+
+
+              }, icon:Icon(Icons.comment),
+               label: Text("see all comments"),
+              style: ButtonStyle(backgroundColor:MaterialStateProperty.all(Colors.pink ),
+              
+              
+              
+              
+              ),
+            ))
+            
+            
+            ],
+            
+            
+            
+            
+            )
+
+          // Container(
+          //   margin: EdgeInsets.symmetric(vertical: 10,horizontal:20 ),
+          //   height: MediaQuery.of(context).size.height*0.5,
+          // width: MediaQuery.of(context).size.width*0.7,
           
-          child: ListView.builder(
-            itemCount:comments.length ,
-            itemBuilder: (BuildContext context, int index) {
-              final comment=comments[index];
-              return CommentUi(comment.name, comment.body);
-            },
-          ),
+          // child: ListView.builder(
+          //   itemCount:comments.length ,
+          //   itemBuilder: (BuildContext context, int index) {
+          //     final comment=comments[index];
+          //     return ;
+          //   },
+          // ),
 
 
 
           
-          )
+          // )
           
           
           ]
