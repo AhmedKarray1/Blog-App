@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/posts.dart';
+import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/models/comment.dart';
 import 'package:test_technique1/screens/post_detail_screen.dart';
 
@@ -50,22 +50,44 @@ class PostUi extends StatelessWidget {
               child: 
               
              
-                 GestureDetector(
-                  onTap: (() {
-                    Provider.of<Posts>(context,listen: false).deletePost(id);
-                  }),
-                   child: Container(
-                    margin: EdgeInsets.only(right: 10, top: 10),
-                    height: 50,
-                    width: 50,
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: Colors.pink),
-                    child: Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                      size: 35,
-                    ),
-                                 ),
+                 Column(
+                   children: [
+                     GestureDetector(
+                      onTap: (() {
+                        Provider.of<postsProvider>(context,listen: false).deletePost(id);
+                      }),
+                       child: Container(
+                        margin: EdgeInsets.only(right: 10, top: 10),
+                        height: 30,
+                        width: 30,
+                        decoration:
+                            BoxDecoration(shape: BoxShape.circle, color: Colors.pink),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                                     ),
+                     ),
+                      GestureDetector(
+                      onTap: (() {
+                        
+                      }),
+                       child: Container(
+                        margin: EdgeInsets.only(right: 10, top: 10,bottom: 10),
+                        height: 30,
+                        width: 30,
+                        decoration:
+                            BoxDecoration(shape: BoxShape.circle, color: Colors.pink),
+                        child: Icon(
+                          Icons.update,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                                     ),
+                     ),
+
+                   ],
                  ),
               
             ),

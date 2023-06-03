@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/post.dart';
-import 'package:test_technique1/Providers/posts.dart';
+import 'package:test_technique1/Providers/post_provider.dart';
+import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/models/comment.dart';
 import 'package:test_technique1/screens/comments_screen.dart';
 import 'package:test_technique1/widgets/comment_ui.dart';
@@ -11,7 +11,7 @@ class PostDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final posts = Provider.of<Posts>(context, listen: false);
+    final posts = Provider.of<postsProvider>(context, listen: false);
     // var post=Provider.of<Post>(context);
 
     final routeArgs =
@@ -27,7 +27,7 @@ class PostDetailScreen extends StatelessWidget {
           title: Text("Post Detail"),
           backgroundColor: Colors.pink,
         ),
-        body: Consumer<Posts>(
+        body: Consumer<postsProvider>(
           builder: (context, value, child) => 
 
            Column(children: [
@@ -59,6 +59,8 @@ class PostDetailScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             posts.toggleSavedStatus(postId);
+
+                            // print(posts.savedposts);
         
                             // print(post.isSaved);
                           },

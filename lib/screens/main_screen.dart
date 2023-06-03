@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/posts.dart';
+import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/screens/offline_post_list_screen.dart';
 import 'package:test_technique1/screens/original_post_list_screen.dart';
 
@@ -19,7 +19,7 @@ class _MainScreenState extends State<MainScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Posts>(context).fetchPosts().then((value) {
+      Provider.of<postsProvider>(context).fetchPosts().then((value) {
         setState(() {
           _isLoading = false;
         });
@@ -33,8 +33,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loadedPosts = Provider.of<Posts>(context);
-    loadedPosts.fetchPosts();
+    final loadedPosts = Provider.of<postsProvider>(context);
+    // loadedPosts.fetchPosts();
 
     return DefaultTabController(
       length: 2,

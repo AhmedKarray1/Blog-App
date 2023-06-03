@@ -4,16 +4,18 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:test_technique1/models/comment.dart';
-import 'package:test_technique1/Providers/post.dart';
+import 'package:test_technique1/Providers/post_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Posts with ChangeNotifier {
-  List<Post> _posts = [];
+class postsProvider with ChangeNotifier {
+  List<postProvider> _posts = [];
   Future<Void> fetchPosts() async {
+    
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
     try {
       final response = await http.get(url);
-      final List<Post> loadedPosts = [];
+      final List<postProvider> loadedPosts = [];
       final extractedData = json.decode(response.body);
       if (extractedData == null) {
         exit(1);
@@ -40,31 +42,31 @@ class Posts with ChangeNotifier {
               email: obj["email"]));
         }
         _comments = loadedComment;
-        loadedPosts.add(Post(
+        loadedPosts.add(postProvider(
             id: post["id"],
             title: post["title"],
             body: post["body"],
             comments: _comments));
       }
+      print("fetching all");
       _posts = loadedPosts;
     } catch (error) {
       print(error);
     }
   }
 
-  List<Post> get posts {
+  List<postProvider> get posts {
     return [..._posts];
   }
 
   Future<void> deletePost(int id) async {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
     print("enter delete");
-    final existingPostIndex =
-        _posts.indexWhere((element) => element.id == id);
+    final existingPostIndex = _posts.indexWhere((element) => element.id == id);
     var existingPost = _posts[existingPostIndex];
     _posts.removeWhere((post) => post.id == id);
     notifyListeners();
-   
+
     final response = await http.delete(url);
     print(response.body);
     if (response.statusCode >= 400) {
@@ -76,25 +78,24 @@ class Posts with ChangeNotifier {
     existingPost = null;
   }
 
-  List<Post> get savedPosts {
-    return _posts.where((element) => element.isSaved).toList();
-  }
+  
 
-  Post findById(int id) {
-    return _posts.firstWhere((post) => post.id == id);
-  }
-  //  void toggleSavedStatus(int id) {
-
-  //   notifyListeners();
+  // postProvider findById(int id) {
+  //   return _posts.firstWhere((post) => post.id == id);
   // }
-  Future<void> createPost(Post post) async {
+
+  Future<void> createPost(postProvider post) async {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
     try {
       final response = await http.post(url,
           body: json.encode({'title': post.title, 'body': post.body}));
-      final newPost =
-          Post(id: _posts.length, title: post.title, body: post.body);
+      final responseData = json.decode(response.body);
+
+      final newPost = postProvider(
+          id: _posts.length, title: post.title, body: post.body, comments: []);
       _posts.add(newPost);
+
+      print(_posts.length);
       notifyListeners();
     } catch (error) {
       print(error);
@@ -102,7 +103,7 @@ class Posts with ChangeNotifier {
     }
   }
 
-  Future<void> updatePost(int id, Post newPost) async {
+  Future<void> updatePost(int id, postProvider newPost) async {
     final postIndex = _posts.indexWhere((post) => post.id == id);
     if (postIndex >= 0) {
       final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
@@ -115,21 +116,51 @@ class Posts with ChangeNotifier {
       notifyListeners();
     } else {
       print('not existing post');
-
     }
   }
-    void toggleSavedStatus(int id) {
+  List<postProvider> _savedposts=[];
 
-      var indexPost=_posts.indexWhere((post) => post.id==id);
-      _posts[indexPost].isSaved=!_posts[indexPost].isSaved;
+  void toggleSavedStatus(int id) {
+    var indexPost = _posts.indexWhere((post) => post.id == id);
+    _posts[indexPost].isSaved = !_posts[indexPost].isSaved;
+    // if(_posts[indexPost].isSaved)
+    // {_savedposts.add(_posts[indexPost]);}
+    // else{
+    //   if(_savedposts.contains(_posts[indexPost]))
+    //   {_savedposts.remove(_posts[indexPost]);
 
 
-notifyListeners();
+    //   }
+
+
+    // }
+    
+    notifyListeners();
+  }
+  
+   List<postProvider> get savedposts {
+    return [..._savedposts];
   }
 
+  // List<postProvider> get savedPosts {
+  //   return _posts.where((element) => element.isSaved).toList();
+  
+  // }
+//   List<String> titleSavedPost;
+//   void getTitles()
+//   {for(var post in savedPosts )
+//   {titleSavedPost.add(post.title);}
+// }
+// List<String> bodySavedPost;
 
+//   void getBodies()
+//   {for(var post in savedPosts )
+//   {bodySavedPost.add(post.body);}
+// }
 
+  Future<void> setPosts(String title) async {
+    SharedPreferences pref_title = await SharedPreferences.getInstance();
 
-
-
+    pref_title.setString('title', title);
+  }
 }

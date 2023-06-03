@@ -1,16 +1,29 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/comments.dart';
-import 'package:test_technique1/Providers/post.dart';
-import 'package:test_technique1/Providers/posts.dart';
+
+import 'package:test_technique1/Providers/post_provider.dart';
+import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/screens/comments_screen.dart';
 import 'package:test_technique1/screens/main_screen.dart';
 import 'package:test_technique1/screens/original_post_list_screen.dart';
 import 'package:test_technique1/screens/post_detail_screen.dart';
-
+import 'package:flutter/services.dart';
 void main() {
+  
+  WidgetsFlutterBinding.ensureInitialized();
+
+SystemChrome.setPreferredOrientations([
+  DeviceOrientation.portraitUp
+
+
+])
+
+
+  ;
+  
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -18,8 +31,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (ctx) => Post()),
-          ChangeNotifierProvider(create: (ctx) => Posts())
+          ChangeNotifierProvider(create: (ctx) => postProvider()),
+          ChangeNotifierProvider(create: (ctx) => postsProvider())
         ],
         child: MaterialApp(
           title: "App",
