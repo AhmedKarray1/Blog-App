@@ -8,11 +8,11 @@ class Comment {
 
   final int postId;
   Comment(
-      {@required this.id,
-      @required this.name,
-      @required this.body,
-      @required this.postId,
-      @required this.email});
+      {required this.id,
+      required this.name,
+      required this.body,
+      required this.postId,
+      required this.email});
 
   @override
   String toString() {

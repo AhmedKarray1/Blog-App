@@ -8,7 +8,7 @@ import '../widgets/post_ui.dart';
 
 class OriginalPostListScreen extends StatelessWidget 
 {
-  Function addpost;
+  late Function addpost;
 
 static const routeName='/originalpostListScreen';
 

@@ -14,11 +14,11 @@ class PostUi extends StatelessWidget {
 
   
   PostUi(
-      {@required this.id,
-      @required this.title,
-      @required this.body,
-      @required this.comments,
-      @required this.preview
+      {required this.id,
+      required this.title,
+    required this.body,
+      required this.comments,
+      required this.preview
       ,
       });
 

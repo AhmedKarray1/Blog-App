@@ -6,7 +6,7 @@ class CommentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final comments = ModalRoute.of(context).settings.arguments as List;
+    final comments = ModalRoute.of(context)!.settings.arguments as List;
 
     return Scaffold(
       appBar: AppBar(

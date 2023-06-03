@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/post_provider.dart';
+import 'package:test_technique1/Providers/post.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 
-class NewPost extends StatefulWidget {
-  // final Function addNewPost;
-  // NewPost(this.addNewPost);
+class NewPost extends StatelessWidget {
+ 
   
 
-  @override
-  State<NewPost> createState() => _NewPostState();
-}
-
-class _NewPostState extends State<NewPost> {
-
-  
   final _titlecontroller=TextEditingController();
+
   final _bodycontroller=TextEditingController();
-  void _submitData(){
+
+  void _submitData(BuildContext context,int id){
     final enteredTitle=_titlecontroller.text;
     final enteredBody=_bodycontroller.text;
     if ((enteredTitle.isEmpty)||enteredBody.isEmpty)
     {return;}
-    var newPost=postProvider(title: enteredTitle, body: enteredBody);
+    var newPost=Post(id:id,title: enteredTitle, body: enteredBody,comments: 
+    []);
     Navigator.of(context).pop();
 
     Provider.of<postsProvider>(context,listen: false).createPost(newPost);
@@ -33,12 +28,14 @@ class _NewPostState extends State<NewPost> {
 
 
   }
-  
-  
+
   @override
 
   
   Widget build(BuildContext context) {
+    final posts=Provider.of<postsProvider>(context);
+
+    
     return SingleChildScrollView(
       child: Card(
         elevation: 16,
@@ -52,7 +49,7 @@ class _NewPostState extends State<NewPost> {
             TextField(decoration: InputDecoration(
               labelText:'title', ),
               controller: _titlecontroller,
-              onSubmitted: (_)=>_submitData(),
+              onSubmitted: (_)=>_submitData(context,posts.posts.length),
 
 
 
@@ -64,10 +61,10 @@ class _NewPostState extends State<NewPost> {
             ),
             
             controller:_bodycontroller ,
-            onSubmitted: (_)=>_submitData(),
+            onSubmitted: (_)=>_submitData(context,posts.posts.length),
             
             ),
-            ElevatedButton(onPressed: ()=>_submitData(), 
+            ElevatedButton(onPressed: ()=>_submitData(context,posts.posts.length), 
             
             style: ButtonStyle(
               backgroundColor:

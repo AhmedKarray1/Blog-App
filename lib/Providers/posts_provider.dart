@@ -4,18 +4,18 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:test_technique1/models/comment.dart';
-import 'package:test_technique1/Providers/post_provider.dart';
+import 'package:test_technique1/Providers/post.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tuple/tuple.dart';
+// import 'package:tuple/tuple.dart';
 
 class postsProvider with ChangeNotifier {
-  List<postProvider> _posts = [];
-  Future<Void> fetchPosts() async {
+  List<Post> _posts = [];
+  Future<Void?> fetchPosts() async {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
     try {
       final response = await http.get(url);
-      final List<postProvider> loadedPosts = [];
+      final List<Post> loadedPosts = [];
       final extractedData = json.decode(response.body);
       if (extractedData == null) {
         exit(1);
@@ -42,7 +42,7 @@ class postsProvider with ChangeNotifier {
               email: obj["email"]));
         }
         _comments = loadedComment;
-        loadedPosts.add(postProvider(
+        loadedPosts.add(Post(
             id: post["id"],
             title: post["title"],
             body: post["body"],
@@ -51,11 +51,12 @@ class postsProvider with ChangeNotifier {
 
       _posts = loadedPosts;
     } catch (error) {
-      print(error);
+      
+      throw(error);
     }
   }
 
-  List<postProvider> get posts {
+  List<Post> get posts {
     return [..._posts];
   }
 
@@ -75,17 +76,17 @@ class postsProvider with ChangeNotifier {
       notifyListeners();
       throw HttpException('could not delete post');
     }
-    existingPost = null;
+    
   }
 
-  Future<void> createPost(postProvider post) async {
+  Future<void> createPost(Post post) async {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
     try {
       final response = await http.post(url,
           body: json.encode({'title': post.title, 'body': post.body}));
       final responseData = json.decode(response.body);
 
-      final newPost = postProvider(
+      final newPost = Post(
           id: _posts.length, title: post.title, body: post.body, comments: []);
       _posts.add(newPost);
 
@@ -97,7 +98,7 @@ class postsProvider with ChangeNotifier {
     }
   }
 
-  Future<void> updatePost(int id, postProvider newPost) async {
+  Future<void> updatePost(int id, Post newPost) async {
     final postIndex = _posts.indexWhere((post) => post.id == id);
     if (postIndex >= 0) {
       final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
@@ -113,7 +114,7 @@ class postsProvider with ChangeNotifier {
     }
   }
 
-  List<postProvider> _savedposts = [];
+  List<Post> _savedposts = [];
 
   void toggleSavedStatus(int id) {
     var indexPost = _posts.indexWhere((post) => post.id == id);
@@ -130,7 +131,7 @@ class postsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<postProvider> get savedposts {
+  List<Post> get savedposts {
     return [..._savedposts];
   }
 
@@ -162,21 +163,14 @@ print("ahmedfinn");
     notifyListeners();
   }
 
-  List<dynamic> local_saved_posts;
+  List<dynamic> local_saved_posts=[];
   Future<void> loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var titles = prefs.getStringList('title');
     var bodies = prefs.getStringList('body');
-    mergeLists(titles, bodies);
+    // mergeLists(titles, bodies);
     notifyListeners();
   }
 
-  List<Tuple2<String, String>> zipLists(List<String> a, List<String> b) {
-    final length = a.length < b.length ? a.length : b.length;
-    return List.generate(length, (index) => Tuple2(a[index], b[index]));
-  }
-
-  void mergeLists(titles, bodies) {
-    local_saved_posts = zipLists(titles, bodies);
-  }
+ 
 }

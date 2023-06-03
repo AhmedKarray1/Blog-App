@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:test_technique1/Providers/post_provider.dart';
+import 'package:test_technique1/Providers/post.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/screens/comments_screen.dart';
 import 'package:test_technique1/screens/main_screen.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (ctx) => postProvider()),
+          
           ChangeNotifierProvider(create: (ctx) => postsProvider())
         ],
         child: MaterialApp(
