@@ -83,12 +83,12 @@ class postsProvider with ChangeNotifier {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
     try {
       final response = await http.post(url,
-          body: json.encode({'title': post.title, 'body': post.body}));
+          body: json.encode({'id':_posts.length,'title': post.title, 'body': post.body}));
       final responseData = json.decode(response.body);
 
       final newPost = Post(
           id: _posts.length, title: post.title, body: post.body, comments: []);
-      _posts.add(newPost);
+      _posts.indexOf(newPost,0);
 
       print(_posts.length);
       notifyListeners();
@@ -101,13 +101,16 @@ class postsProvider with ChangeNotifier {
   Future<void> updatePost(int id, Post newPost) async {
     final postIndex = _posts.indexWhere((post) => post.id == id);
     if (postIndex >= 0) {
+      _posts[postIndex] = newPost;
       final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
+      
       await http.patch(url,
           body: json.encode({
+            'id':newPost.id,
             'title': newPost.title,
             'Body': newPost.body,
           }));
-      _posts[postIndex] = newPost;
+      
       notifyListeners();
     } else {
       print('not existing post');
@@ -171,6 +174,10 @@ print("ahmedfinn");
     // mergeLists(titles, bodies);
     notifyListeners();
   }
+Post findById(int id)
+{return _posts.firstWhere((post) => post.id==id);
+
+}
 
  
 }

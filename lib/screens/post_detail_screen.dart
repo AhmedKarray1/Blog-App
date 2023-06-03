@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/post.dart';
+
 import 'package:test_technique1/Providers/posts_provider.dart';
-import 'package:test_technique1/models/comment.dart';
+
 import 'package:test_technique1/screens/comments_screen.dart';
 import 'package:test_technique1/widgets/comment_ui.dart';
 
@@ -20,7 +20,7 @@ class PostDetailScreen extends StatelessWidget {
     final postTitle = routeArgs['title'];
     final postBody = routeArgs['body'];
     final comments = routeArgs['comments'] as List;
-    
+    print(postTitle);
 
     return Scaffold(
         appBar: AppBar(
@@ -101,7 +101,7 @@ class PostDetailScreen extends StatelessWidget {
                 ],
               ),
             ),
-            (comments == null)
+            ((comments == null)||(comments==[]))
                 ? Center(child: Text("no comment yet"))
                 : Column(
                     children: [

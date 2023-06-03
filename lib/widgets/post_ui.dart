@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/models/comment.dart';
 import 'package:test_technique1/screens/post_detail_screen.dart';
+import 'package:test_technique1/widgets/update_post.dart';
 
 class PostUi extends StatelessWidget {
   final int id;
@@ -11,6 +12,7 @@ class PostUi extends StatelessWidget {
   final List<Comment> comments;
 
   final String preview;
+
 
   
   PostUi(
@@ -22,6 +24,16 @@ class PostUi extends StatelessWidget {
       ,
       });
 
+  
+  void updatePost(BuildContext ctx,int id)
+  { showModalBottomSheet(context: ctx, builder: (_)
+  
+  {return UpdatePost(id); }
+  );
+
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -71,6 +83,7 @@ class PostUi extends StatelessWidget {
                      ),
                       GestureDetector(
                       onTap: (() {
+                        updatePost(context, id);
                         
                       }),
                        child: Container(
