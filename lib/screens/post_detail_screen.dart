@@ -12,7 +12,7 @@ class PostDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<postsProvider>(context, listen: false);
-    // var post=Provider.of<Post>(context);
+    
 
     final routeArgs =
         ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
@@ -20,7 +20,7 @@ class PostDetailScreen extends StatelessWidget {
     final postTitle = routeArgs['title'];
     final postBody = routeArgs['body'];
     final comments = routeArgs['comments'] as List;
-    // post=posts.posts.firstWhere((post) => post.id==postId);
+    
 
     return Scaffold(
         appBar: AppBar(
@@ -59,6 +59,7 @@ class PostDetailScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             posts.toggleSavedStatus(postId);
+                            posts.setPosts(postTitle, postBody);
 
                             // print(posts.savedposts);
         

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/screens/offline_post_list_screen.dart';
 import 'package:test_technique1/screens/original_post_list_screen.dart';
+import 'package:test_technique1/screens/splash_screen.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -36,7 +37,8 @@ class _MainScreenState extends State<MainScreen> {
     final loadedPosts = Provider.of<postsProvider>(context);
     // loadedPosts.fetchPosts();
 
-    return DefaultTabController(
+    return _isLoading?SplashScreen():
+    DefaultTabController(
       length: 2,
       child: Scaffold(
           appBar: AppBar(
@@ -64,11 +66,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ]),
           ),
-          body: _isLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : TabBarView(children: [
+          body:  TabBarView(children: [
                   OfflinePostListScreen(),
                   OriginalPostListScreen(),
                 ])),

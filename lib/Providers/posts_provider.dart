@@ -7,11 +7,11 @@ import 'package:test_technique1/models/comment.dart';
 import 'package:test_technique1/Providers/post_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tuple/tuple.dart';
 
 class postsProvider with ChangeNotifier {
   List<postProvider> _posts = [];
   Future<Void> fetchPosts() async {
-    
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
     try {
       final response = await http.get(url);
@@ -48,7 +48,7 @@ class postsProvider with ChangeNotifier {
             body: post["body"],
             comments: _comments));
       }
-      print("fetching all");
+
       _posts = loadedPosts;
     } catch (error) {
       print(error);
@@ -77,12 +77,6 @@ class postsProvider with ChangeNotifier {
     }
     existingPost = null;
   }
-
-  
-
-  // postProvider findById(int id) {
-  //   return _posts.firstWhere((post) => post.id == id);
-  // }
 
   Future<void> createPost(postProvider post) async {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
@@ -118,49 +112,71 @@ class postsProvider with ChangeNotifier {
       print('not existing post');
     }
   }
-  List<postProvider> _savedposts=[];
+
+  List<postProvider> _savedposts = [];
 
   void toggleSavedStatus(int id) {
     var indexPost = _posts.indexWhere((post) => post.id == id);
     _posts[indexPost].isSaved = !_posts[indexPost].isSaved;
-    // if(_posts[indexPost].isSaved)
-    // {_savedposts.add(_posts[indexPost]);}
-    // else{
-    //   if(_savedposts.contains(_posts[indexPost]))
-    //   {_savedposts.remove(_posts[indexPost]);
+    if (_posts[indexPost].isSaved) {
+      _savedposts.add(_posts[indexPost]);
+    } else {
+      if (_savedposts.contains(_posts[indexPost])) {
+        _savedposts.remove(_posts[indexPost]);
+      }
+    }
+    // print(_savedposts);
 
-
-    //   }
-
-
-    // }
-    
     notifyListeners();
   }
-  
-   List<postProvider> get savedposts {
+
+  List<postProvider> get savedposts {
     return [..._savedposts];
   }
 
-  // List<postProvider> get savedPosts {
-  //   return _posts.where((element) => element.isSaved).toList();
-  
-  // }
-//   List<String> titleSavedPost;
-//   void getTitles()
-//   {for(var post in savedPosts )
-//   {titleSavedPost.add(post.title);}
-// }
-// List<String> bodySavedPost;
+  Future<void> setPosts(String title, String body) async {
+   
+    List<String> titleSavedPost = [];
 
-//   void getBodies()
-//   {for(var post in savedPosts )
-//   {bodySavedPost.add(post.body);}
-// }
+    for (var post in _savedposts) {
+      titleSavedPost.add(post.title);
+    }
+    titleSavedPost.add(title);
 
-  Future<void> setPosts(String title) async {
+    List<String> bodySavedPost = [];
+
+    for (var post in savedposts) {
+      bodySavedPost.add(post.body);
+    }
+    bodySavedPost.add(body);
+print("ahmedfinn");
     SharedPreferences pref_title = await SharedPreferences.getInstance();
+     
 
-    pref_title.setString('title', title);
+    pref_title.setStringList('title', titleSavedPost);
+    SharedPreferences pref_body = await SharedPreferences.getInstance();
+
+    pref_body.setStringList('body', bodySavedPost);
+  
+    print(titleSavedPost);
+    notifyListeners();
+  }
+
+  List<dynamic> local_saved_posts;
+  Future<void> loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var titles = prefs.getStringList('title');
+    var bodies = prefs.getStringList('body');
+    mergeLists(titles, bodies);
+    notifyListeners();
+  }
+
+  List<Tuple2<String, String>> zipLists(List<String> a, List<String> b) {
+    final length = a.length < b.length ? a.length : b.length;
+    return List.generate(length, (index) => Tuple2(a[index], b[index]));
+  }
+
+  void mergeLists(titles, bodies) {
+    local_saved_posts = zipLists(titles, bodies);
   }
 }
