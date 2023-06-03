@@ -13,10 +13,10 @@ class Post with ChangeNotifier {
       @required this.body,
        this.comments,
       this.isSaved=false});
-  void toggleSavedStatus() {
-    isSaved = !isSaved;
-    notifyListeners();
-  }
+  // void toggleSavedStatus() {
+  //   isSaved = !isSaved;
+  //   notifyListeners();
+  // }
 
   @override
   String toString() {

@@ -56,15 +56,19 @@ class Posts with ChangeNotifier {
     return [..._posts];
   }
 
-  Future<void> deletePost(String id) async {
+  Future<void> deletePost(int id) async {
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
+    print("enter delete");
     final existingPostIndex =
-        _posts.indexWhere((element) => (element.id).toString() == id);
+        _posts.indexWhere((element) => element.id == id);
     var existingPost = _posts[existingPostIndex];
-    _posts.removeWhere((post) => (post.id).toString() == id);
+    _posts.removeWhere((post) => post.id == id);
     notifyListeners();
+   
     final response = await http.delete(url);
+    print(response.body);
     if (response.statusCode >= 400) {
+      print("erreur");
       _posts.insert(existingPostIndex, existingPost);
       notifyListeners();
       throw HttpException('could not delete post');
@@ -111,6 +115,21 @@ class Posts with ChangeNotifier {
       notifyListeners();
     } else {
       print('not existing post');
+
     }
   }
+    void toggleSavedStatus(int id) {
+
+      var indexPost=_posts.indexWhere((post) => post.id==id);
+      _posts[indexPost].isSaved=!_posts[indexPost].isSaved;
+
+
+notifyListeners();
+  }
+
+
+
+
+
+
 }

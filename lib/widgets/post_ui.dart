@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:test_technique1/Providers/posts.dart';
 import 'package:test_technique1/models/comment.dart';
 import 'package:test_technique1/screens/post_detail_screen.dart';
 
@@ -9,12 +11,16 @@ class PostUi extends StatelessWidget {
   final List<Comment> comments;
 
   final String preview;
+
+  
   PostUi(
       {@required this.id,
       @required this.title,
       @required this.body,
       @required this.comments,
-      @required this.preview});
+      @required this.preview
+      ,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +47,27 @@ class PostUi extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topRight,
-              child: Container(
-                margin: EdgeInsets.only(right: 10, top: 10),
-                height: 50,
-                width: 50,
-                decoration:
-                    BoxDecoration(shape: BoxShape.circle, color: Colors.pink),
-                child: Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                  size: 35,
-                ),
-              ),
+              child: 
+              
+             
+                 GestureDetector(
+                  onTap: (() {
+                    Provider.of<Posts>(context,listen: false).deletePost(id);
+                  }),
+                   child: Container(
+                    margin: EdgeInsets.only(right: 10, top: 10),
+                    height: 50,
+                    width: 50,
+                    decoration:
+                        BoxDecoration(shape: BoxShape.circle, color: Colors.pink),
+                    child: Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                      size: 35,
+                    ),
+                                 ),
+                 ),
+              
             ),
             Align(
               alignment: Alignment.topCenter,
