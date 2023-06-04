@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [ChangeNotifierProvider(create: (ctx) => postsProvider())],
         child: MaterialApp(
-          
           title: "App",
           home: MainScreen(),
           routes: {

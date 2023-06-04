@@ -51,7 +51,7 @@ class PostDetailScreen extends StatelessWidget {
                             child: Text(
                               postTitle,
                               style: TextStyle(
-                                  color: Colors.red.withOpacity(0.99),
+                                  color: Colors.pink.withOpacity(0.99),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             )),
@@ -97,7 +97,20 @@ class PostDetailScreen extends StatelessWidget {
               ),
             ),
             ((comments == null) || (comments.isEmpty))
-                ? Center(child: Text("no comment yet"))
+                ? Center(
+                    child: Container(
+                    margin: EdgeInsets.symmetric(
+                      vertical: height * 0.1,
+                      horizontal: 0.1,
+                    ),
+                    child: Text(
+                      "No Comments Yet !",
+                      style: TextStyle(
+                          color: Colors.pink,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ))
                 : Column(
                     children: [
                       CommentUi(

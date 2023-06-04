@@ -7,11 +7,11 @@ class CommentUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height=MediaQuery.of(context).size.height;
-    var width=MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     print(height);
     return Container(
-      height: height*0.19,
+      height: height * 0.19,
       width: double.infinity,
       margin: EdgeInsets.all(13),
       decoration: BoxDecoration(
@@ -38,12 +38,14 @@ class CommentUi extends StatelessWidget {
                     BoxDecoration(borderRadius: BorderRadius.circular(10)),
                 margin:
                     EdgeInsets.only(top: 40, bottom: 10, left: 15, right: 15),
-                height: height*0.115,
+                height: height * 0.115,
                 width: double.infinity,
                 child: SingleChildScrollView(
                     child: Text(
                   commentBody,
-                  style: TextStyle(fontSize: 14,),
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
                 ))),
           )
         ],

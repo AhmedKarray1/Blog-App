@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:test_technique1/models/comment.dart';
 import 'package:test_technique1/models/post.dart';
@@ -82,7 +83,10 @@ class postsProvider with ChangeNotifier {
     try {
       print("create1");
       final newPost = Post(
-          id: _posts.length+1, title: post.title, body: post.body, comments: []);
+          id: _posts.length + 1,
+          title: post.title,
+          body: post.body,
+          comments: []);
       _posts.add(newPost);
       final response = await http.post(url,
           body: json.encode({
@@ -140,58 +144,50 @@ class postsProvider with ChangeNotifier {
   }
 
   Future<void> setPosts() async {
-     SharedPreferences prefs = await SharedPreferences.getInstance();
-     
-    List<String> titleSavedPost =prefs.getStringList('title')??[] ;
-List<String> bodySavedPost = prefs.getStringList('body')??[];
-await prefs.remove('title');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    List<String> titleSavedPost = prefs.getStringList('title') ?? [];
+    List<String> bodySavedPost = prefs.getStringList('body') ?? [];
+    await prefs.remove('title');
     await prefs.remove('body');
 
     for (var post in _savedposts) {
       titleSavedPost.add(post.title);
     }
-    
-
-    
 
     for (var post in _savedposts) {
       bodySavedPost.add(post.body);
-
     }
-   
-    
-   
-
-    
 
     await prefs.setStringList('title', titleSavedPost);
-   
 
     await prefs.setStringList('body', bodySavedPost);
 
     notifyListeners();
   }
 
-
-
   List<Post> local_saved_posts = [];
   Future<void> loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var titles = prefs.getStringList('title');
     var bodies = prefs.getStringList('body');
-    if ((titles!=null)&&(bodies!=null))
-    {
-      for (var i=0;i<titles.length;i++)
-      {local_saved_posts.add(Post(id:i , title: titles[i], body:bodies[i], comments: []));
-}
+    if ((titles != null) && (bodies != null)) {
+      for (var i = 0; i < titles.length; i++) {
+        local_saved_posts
+            .add(Post(id: i, title: titles[i], body: bodies[i], comments: []));
+      }
     }
-    
 
     notifyListeners();
   }
 
-
   Post findById(int id) {
     return _posts.firstWhere((post) => post.id == id);
+  }
+
+  ConnectivityResult connectivityResult = ConnectivityResult.none;
+  void checkConnectivity() async {
+    connectivityResult = await (Connectivity().checkConnectivity());
+    notifyListeners();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
@@ -15,18 +16,34 @@ class _MainScreenState extends State<MainScreen> {
   var _isLoading = false;
 
   @override
-  void didChangeDependencies  ()async {
+  void didChangeDependencies() async {
     if (_isInit) {
       setState(() {
         _isLoading = true;
       });
-      await Provider.of<postsProvider>(context,listen: false).loadData();
-      Provider.of<postsProvider>(context,listen: false).fetchPosts().then((value) {
-        setState(() {
-          _isLoading = false;
+      var postsprovider=Provider.of<postsProvider>(context);
+
+      await postsprovider.loadData();
+      postsprovider.checkConnectivity();
+      if (postsprovider
+              .connectivityResult ==
+          ConnectivityResult.wifi) {
+        Provider.of<postsProvider>(context, listen: false)
+            .fetchPosts()
+            .then((value) {
+          setState(() {
+            _isLoading = false;
+          });
         });
+      }
+      else setState(() {
+        _isLoading = false;
+        
       });
+      
+
     }
+    
 
     _isInit = false;
 
@@ -35,27 +52,28 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loadedPosts = Provider.of<postsProvider>(context);
-    
-
     return _isLoading
         ? SplashScreen()
         : DefaultTabController(
             length: 2,
             child: Scaffold(
-              
                 appBar: AppBar(
                   backgroundColor: Colors.pink,
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.article,size: 30,),
+                      Icon(
+                        Icons.article,
+                        size: 30,
+                      ),
                       SizedBox(
                         width: 20,
                       ),
-                      Text("Blog App",style: TextStyle(
-                        fontSize: 26,fontWeight: FontWeight.bold
-                       ),),
+                      Text(
+                        "Blog App",
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                   bottom: TabBar(tabs: [

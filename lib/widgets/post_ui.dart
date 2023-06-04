@@ -31,9 +31,9 @@ class PostUi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     var height=MediaQuery.of(context).size.height;
-    var width=MediaQuery.of(context).size.width;
-    
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(PostDetailScreen.routeName, arguments: {
@@ -48,14 +48,13 @@ class PostUi extends StatelessWidget {
             vertical: MediaQuery.of(context).size.width * 0.04,
             horizontal: MediaQuery.of(context).size.width * 0.1),
         width: MediaQuery.of(context).size.width * 0.8,
-        height: height*0.138,
+        height: height * 0.138,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          
+
           color: Colors.pink.withOpacity(0.3),
           // borderRadius:BorderRadius.circular(20)
         ),
-        
         child: Stack(
           children: [
             Align(
@@ -68,9 +67,10 @@ class PostUi extends StatelessWidget {
                           .deletePost(id);
                     }),
                     child: Container(
-                      margin: EdgeInsets.only(right: width*0.02, top: height*0.02),
-                      height: height*0.043,
-                      width: width*0.09,
+                      margin: EdgeInsets.only(
+                          right: width * 0.02, top: height * 0.02),
+                      height: height * 0.043,
+                      width: width * 0.09,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: Colors.pink),
                       child: Icon(
@@ -85,9 +85,12 @@ class PostUi extends StatelessWidget {
                       updatePost(context, id);
                     }),
                     child: Container(
-                      margin: EdgeInsets.only(right: width*0.02, top: height*0.014, bottom: height*0.014),
-                      height: height*0.043,
-                      width: width*0.09,
+                      margin: EdgeInsets.only(
+                          right: width * 0.02,
+                          top: height * 0.014,
+                          bottom: height * 0.014),
+                      height: height * 0.043,
+                      width: width * 0.09,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: Colors.pink),
                       child: Icon(
@@ -103,27 +106,27 @@ class PostUi extends StatelessWidget {
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                margin: EdgeInsets.only(top: height*0.011),
-                height: height*0.073,
-                width: width*0.43,
+                margin: EdgeInsets.only(top: height * 0.011),
+                height: height * 0.073,
+                width: width * 0.43,
                 child: Text(
                   this.title,
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, 
-                      fontSize: 
-                      15
-                      ,color:Colors.pink),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.pink),
                 ),
               ),
             ),
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-                padding: EdgeInsets.only(top: height*0.043, left: width*0.02),
-                height: height*0.073,
-                width: width*0.73,
+                padding:
+                    EdgeInsets.only(top: height * 0.043, left: width * 0.02),
+                height: height * 0.073,
+                width: width * 0.73,
                 child: Text(
-                  '${this.preview}...',
+                  preview == body ? body : '${this.preview}...',
                   style: TextStyle(fontSize: 15),
                 ),
               ),

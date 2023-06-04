@@ -18,7 +18,6 @@ class _UpdatePostState extends State<UpdatePost> {
     'id': null,
     'title': '',
     'body': '',
-
   };
   TextEditingController titleController = TextEditingController();
 
@@ -74,24 +73,22 @@ class _UpdatePostState extends State<UpdatePost> {
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Title:',
-                  labelStyle: TextStyle(color: Colors.pink,fontSize: 23,fontWeight: FontWeight.bold) ,
-                  
-
-
+                  labelStyle: TextStyle(
+                      color: Colors.pink,
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold),
                 ),
                 controller: titleController,
                 onSubmitted: (_) => _submitData(
                     context, widget.id, posts.findById(widget.id).comments),
-              
-              
               ),
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Body:',
-                  labelStyle: TextStyle(color: Colors.pink,fontSize: 23,fontWeight: FontWeight.bold) ,
-                  
-
-
+                  labelStyle: TextStyle(
+                      color: Colors.pink,
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold),
                 ),
                 controller: bodyController,
                 onSubmitted: (_) => _submitData(
