@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [ChangeNotifierProvider(create: (ctx) => postsProvider())],
+        providers: [ChangeNotifierProvider(create: (ctx) => PostsProvider())],
         child: MaterialApp(
           title: "App",
           home: MainScreen(),

@@ -23,15 +23,17 @@ class _MainScreenState extends State<MainScreen> {
       setState(() {
         _isLoading = true;
       });
-      var postsprovider = Provider.of<postsProvider>(context);
+      var postsprovider = Provider.of<PostsProvider>(context);
 
       await postsprovider.loadData();
       await postsprovider.checkConnectivity();
 
-      if (postsprovider
+      if ((postsprovider
               .connectivityResult ==
-          ConnectivityResult.wifi) {
-      Provider.of<postsProvider>(context, listen: false)
+          ConnectivityResult.wifi)||(postsprovider
+              .connectivityResult ==
+          ConnectivityResult.mobile)) {
+      Provider.of<PostsProvider>(context, listen: false)
           .fetchPosts()
           .then((value) {
         setState(() {

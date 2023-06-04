@@ -5,7 +5,7 @@ import 'package:test_technique1/models/comment.dart';
 import 'package:test_technique1/screens/post_detail_screen.dart';
 import 'package:test_technique1/widgets/update_post.dart';
 
-class PostUi extends StatelessWidget {
+class SavedPostUi extends StatelessWidget {
   final int id;
   final String title;
   final String body;
@@ -13,7 +13,7 @@ class PostUi extends StatelessWidget {
 
   final String preview;
 
-  PostUi({
+  SavedPostUi({
     required this.id,
     required this.title,
     required this.body,
@@ -69,37 +69,19 @@ class PostUi extends StatelessWidget {
                     child: Container(
                       margin: EdgeInsets.only(
                           right: width * 0.02, top: height * 0.02),
-                      height: height * 0.043,
+                      height: height*0.087,
+                      // height * 0.043,
                       width: width * 0.09,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: Colors.pink),
                       child: Icon(
                         Icons.delete,
                         color: Colors.white,
-                        size: 25,
+                        size: 30,
                       ),
                     ),
                   ),
-                  GestureDetector(
-                    onTap: (() {
-                      updatePost(context, id,title);
-                    }),
-                    child: Container(
-                      margin: EdgeInsets.only(
-                          right: width * 0.02,
-                          top: height * 0.014,
-                          bottom: height * 0.014),
-                      height: height * 0.043,
-                      width: width * 0.09,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.pink),
-                      child: Icon(
-                        Icons.update,
-                        color: Colors.white,
-                        size: 25,
-                      ),
-                    ),
-                  ),
+                
                 ],
               ),
             ),

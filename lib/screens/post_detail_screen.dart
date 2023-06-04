@@ -14,7 +14,7 @@ class PostDetailScreen extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
-    final posts = Provider.of<postsProvider>(context, listen: false);
+    final posts = Provider.of<PostsProvider>(context, listen: false);
 
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -28,7 +28,7 @@ class PostDetailScreen extends StatelessWidget {
           title: Text("Post Detail"),
           backgroundColor: Colors.pink,
         ),
-        body: Consumer<postsProvider>(
+        body: Consumer<PostsProvider>(
           builder: (context, value, child) => Column(children: [
             Container(
               height: height * 0.25,

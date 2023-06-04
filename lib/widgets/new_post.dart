@@ -21,13 +21,13 @@ class NewPost extends StatelessWidget {
     var newPost =
         Post(id: 0, title: enteredTitle, body: enteredBody, comments: []);
     Navigator.of(context).pop();
-    await Provider.of<postsProvider>(context, listen: false)
+    await Provider.of<PostsProvider>(context, listen: false)
         .createPost(newPost);
   }
 
   @override
   Widget build(BuildContext context) {
-    final posts = Provider.of<postsProvider>(context);
+    final posts = Provider.of<PostsProvider>(context);
 
     return SingleChildScrollView(
       child: Card(

@@ -7,6 +7,7 @@ import 'package:test_technique1/models/comment.dart';
 
 class UpdatePost extends StatefulWidget {
   final int id;
+  
   UpdatePost(this.id);
 
   @override
@@ -26,7 +27,7 @@ class _UpdatePostState extends State<UpdatePost> {
   @override
 // var _isInit=true;
   void didChangeDependencies() {
-    final editedPost = Provider.of<postsProvider>(context).findById(widget.id);
+    final editedPost = Provider.of<PostsProvider>(context).findById(widget.id);
     Map<String, dynamic> initValues = {
       'id': editedPost.id,
       'title': editedPost.title,
@@ -50,13 +51,13 @@ class _UpdatePostState extends State<UpdatePost> {
         id: id, title: enteredTitle, body: enteredBody, comments: comments);
     Navigator.of(context).pop();
 
-    Provider.of<postsProvider>(context, listen: false)
+    Provider.of<PostsProvider>(context, listen: false)
         .updatePost(widget.id, newPost);
   }
 
   @override
   Widget build(BuildContext context) {
-    final posts = Provider.of<postsProvider>(context);
+    final posts = Provider.of<PostsProvider>(context);
 
     return SingleChildScrollView(
       child: Card(

@@ -28,7 +28,7 @@ class _OriginalPostListScreenState extends State<OriginalPostListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final loadedPosts = Provider.of<postsProvider>(context);
+    final loadedPosts = Provider.of<PostsProvider>(context);
     loadedPosts.checkConnectivity();
 
     var height = MediaQuery.of(context).size.height;
@@ -89,7 +89,7 @@ class _OriginalPostListScreenState extends State<OriginalPostListScreen> {
         margin: EdgeInsets.only(top: 0.01),
         height: 350,
         width: double.infinity,
-        child: Consumer<postsProvider>(
+        child: Consumer<PostsProvider>(
           builder: (context, postsProvider, _) => ListView.builder(
             itemBuilder: ((context, index) => GestureDetector(
                   child: PostUi(
