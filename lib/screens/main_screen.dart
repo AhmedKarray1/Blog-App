@@ -14,6 +14,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   var _isInit = true;
   var _isLoading = false;
+  @override
+ 
 
   @override
   void didChangeDependencies() async {
@@ -21,29 +23,29 @@ class _MainScreenState extends State<MainScreen> {
       setState(() {
         _isLoading = true;
       });
-      var postsprovider=Provider.of<postsProvider>(context);
+      var postsprovider = Provider.of<postsProvider>(context);
 
       await postsprovider.loadData();
-      postsprovider.checkConnectivity();
+      await postsprovider.checkConnectivity();
+
       if (postsprovider
               .connectivityResult ==
           ConnectivityResult.wifi) {
-        Provider.of<postsProvider>(context, listen: false)
-            .fetchPosts()
-            .then((value) {
-          setState(() {
-            _isLoading = false;
-          });
+      Provider.of<postsProvider>(context, listen: false)
+          .fetchPosts()
+          .then((value) {
+        setState(() {
+          _isLoading = false;
         });
-      }
-      else setState(() {
-        _isLoading = false;
-        
       });
-      
+      }
+      else{
+        setState(() {
+        _isLoading = false;
 
+      });
+      }
     }
-    
 
     _isInit = false;
 

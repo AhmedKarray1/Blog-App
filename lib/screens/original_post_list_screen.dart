@@ -40,7 +40,8 @@ class _OriginalPostListScreenState extends State<OriginalPostListScreen> {
             ? 
          Center(
             child: Text("you are offlline"),
-          ):Column(children: [
+          ):
+          Column(children: [
       GestureDetector(
         onTap: () => addNewPost(context),
         child: Container(

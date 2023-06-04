@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class postsProvider with ChangeNotifier {
   List<Post> _posts = [];
   Future<Void?> fetchPosts() async {
+    print("d");
     final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/");
     try {
       final response = await http.get(url);
@@ -54,6 +55,7 @@ class postsProvider with ChangeNotifier {
     } catch (error) {
       throw (error);
     }
+   print("finish"); 
   }
 
   List<Post> get posts {
@@ -186,7 +188,7 @@ class postsProvider with ChangeNotifier {
   }
 
   ConnectivityResult connectivityResult = ConnectivityResult.none;
-  void checkConnectivity() async {
+  Future<void> checkConnectivity() async {
     connectivityResult = await (Connectivity().checkConnectivity());
     notifyListeners();
   }
