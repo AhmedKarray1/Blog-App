@@ -35,41 +35,43 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     final loadedPosts = Provider.of<postsProvider>(context);
-    // loadedPosts.fetchPosts();
+    
 
-    return _isLoading?SplashScreen():
-    DefaultTabController(
-      length: 2,
-      child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.pink,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.article),
-                SizedBox(
-                  width: 20,
+    return _isLoading
+        ? SplashScreen()
+        : DefaultTabController(
+            length: 2,
+            child: Scaffold(
+              
+                appBar: AppBar(
+                  backgroundColor: Colors.pink,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.article),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Blog App"),
+                    ],
+                  ),
+                  bottom: TabBar(tabs: [
+                    Icon(
+                      Icons.wifi_off_sharp,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                    Icon(
+                      Icons.wifi,
+                      color: Colors.white,
+                      size: 50,
+                    ),
+                  ]),
                 ),
-                Text("Blog App"),
-              ],
-            ),
-            bottom: TabBar(tabs: [
-              Icon(
-                Icons.wifi_off_sharp,
-                color: Colors.white,
-                size: 50,
-              ),
-              Icon(
-                Icons.wifi,
-                color: Colors.white,
-                size: 50,
-              ),
-            ]),
-          ),
-          body:  TabBarView(children: [
+                body: TabBarView(children: [
                   OfflinePostListScreen(),
                   OriginalPostListScreen(),
                 ])),
-    );
+          );
   }
 }

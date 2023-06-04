@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -8,9 +7,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-   late AnimationController _animationController;
-   late Animation<double> _sizeAnimation;
-   late Animation<double> _opacityAnimation;
+  late AnimationController _animationController;
+  late Animation<double> _sizeAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -50,41 +49,46 @@ class _SplashScreenState extends State<SplashScreen>
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [AnimatedBuilder(
-  animation: _animationController,
-  builder: (BuildContext context, Widget? child) {
-    return AnimatedOpacity(
-      opacity: _opacityAnimation.value, // Animated opacity
-      duration: Duration(milliseconds: 500),
-      child: AnimatedContainer(
-        height: MediaQuery.of(context).size.height *
-            _sizeAnimation.value, // Animated height
-        width: MediaQuery.of(context).size.width *
-            _sizeAnimation.value, // Animated width
-        duration: Duration(seconds: 1),
-        child: Stack(
           children: [
-            Positioned.fill(
-              child: Icon(
-                Icons.article,
-                color: Colors.white,
-                size: MediaQuery.of(context).size.height * 0.30,
-              ),
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (BuildContext context, Widget? child) {
+                return AnimatedOpacity(
+                  opacity: _opacityAnimation.value, 
+                  duration: Duration(milliseconds: 500),
+                  child: AnimatedContainer(
+                    height: MediaQuery.of(context).size.height *
+                        _sizeAnimation.value, 
+                    width: MediaQuery.of(context).size.width *
+                        _sizeAnimation.value, 
+                    duration: Duration(seconds: 1),
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Icon(
+                            Icons.article,
+                            color: Colors.white,
+                            size: MediaQuery.of(context).size.height * 0.30,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
-      ),
-    );
-  },
-),
-
-            
             Center(
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height*0.1,horizontal: MediaQuery.of(context).size.height*0.05),
-                
-                
-                child: Text("Welcome to the Blog App", style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 50),)),
+                  margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.1,
+                      horizontal: MediaQuery.of(context).size.height * 0.05),
+                  child: Text(
+                    "Welcome to the Blog App",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 50),
+                  )),
             )
           ],
         ),
@@ -92,4 +96,3 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
-

@@ -12,23 +12,22 @@ class OriginalPostListScreen extends StatelessWidget {
 
   static const routeName = '/originalpostListScreen';
 
-  void addNewPost(BuildContext ctx) {
+  void addNewPost(BuildContext ctx,int id) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-          return NewPost();
+          return NewPost(id);
         });
   }
-  
 
   @override
   Widget build(BuildContext context) {
     final loadedPosts = Provider.of<postsProvider>(context);
-    // print(loadedPosts.posts[0].comments.length);
+    
     return Scaffold(
       body: Column(children: [
         GestureDetector(
-          onTap: () => addNewPost(context),
+          onTap: () => addNewPost(context,loadedPosts.posts.length),
           child: Container(
             margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
             width: MediaQuery.of(context).size.width * 0.8,
@@ -38,7 +37,7 @@ class OriginalPostListScreen extends StatelessWidget {
                   topRight: Radius.circular(50),
                   bottomRight: Radius.circular(50)),
               color: Colors.pink,
-              // borderRadius:BorderRadius.circular(20)
+              
             ),
             child: Align(
               alignment: Alignment.center,

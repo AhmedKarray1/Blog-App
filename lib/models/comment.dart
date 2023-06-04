@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
-
-class Comment {
+class Comment 
+{
   final int id;
   final String name;
   final String body;

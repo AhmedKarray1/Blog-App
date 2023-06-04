@@ -12,7 +12,6 @@ class PostDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final posts = Provider.of<postsProvider>(context, listen: false);
-    
 
     final routeArgs =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -28,9 +27,7 @@ class PostDetailScreen extends StatelessWidget {
           backgroundColor: Colors.pink,
         ),
         body: Consumer<postsProvider>(
-          builder: (context, value, child) => 
-
-           Column(children: [
+          builder: (context, value, child) => Column(children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.25,
               width: MediaQuery.of(context).size.width * 0.8,
@@ -52,18 +49,17 @@ class PostDetailScreen extends StatelessWidget {
                             child: Text(
                               postTitle,
                               style: TextStyle(
-                                  color: Colors.red,
+                                  color: Colors.red.withOpacity(0.99
+                                  ),
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 14),
+                                  fontSize: 15),
                             )),
                         GestureDetector(
                           onTap: () {
                             posts.toggleSavedStatus(postId);
                             posts.setPosts(postTitle, postBody);
 
-                            // print(posts.savedposts);
-        
-                            // print(post.isSaved);
+                           
                           },
                           child: Container(
                             margin: EdgeInsets.only(top: 10, right: 10),
@@ -101,7 +97,7 @@ class PostDetailScreen extends StatelessWidget {
                 ],
               ),
             ),
-            ((comments == null)||(comments==[]))
+            ((comments == null) || (comments == []))
                 ? Center(child: Text("no comment yet"))
                 : Column(
                     children: [

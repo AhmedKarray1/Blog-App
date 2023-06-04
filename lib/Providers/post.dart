@@ -2,21 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:test_technique1/models/comment.dart';
 
 class Post with ChangeNotifier {
-   final int id;
+  final int id;
   final String title;
   final String body;
   final List<Comment> comments;
   bool isSaved = false;
   Post(
-      {  required this.id,
+      {required this.id,
       required this.title,
       required this.body,
-       required this.comments,
-      this.isSaved=false});
-  // void toggleSavedStatus() {
-  //   isSaved = !isSaved;
-  //   notifyListeners();
-  // }
+      required this.comments,
+      this.isSaved = false});
 
   @override
   String toString() {

@@ -13,29 +13,27 @@ class PostUi extends StatelessWidget {
 
   final String preview;
 
-
-  
-  PostUi(
-      {required this.id,
-      required this.title,
+  PostUi({
+    required this.id,
+    required this.title,
     required this.body,
-      required this.comments,
-      required this.preview
-      ,
-      });
+    required this.comments,
+    required this.preview,
+  });
 
-  
-  void updatePost(BuildContext ctx,int id)
-  { showModalBottomSheet(context: ctx, builder: (_)
-  
-  {return UpdatePost(id); }
-  );
-
-
-
+  void updatePost(BuildContext ctx, int id) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return UpdatePost(id);
+        });
   }
+
   @override
   Widget build(BuildContext context) {
+     var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
+    
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(PostDetailScreen.routeName, arguments: {
@@ -50,7 +48,7 @@ class PostUi extends StatelessWidget {
             vertical: MediaQuery.of(context).size.width * 0.04,
             horizontal: MediaQuery.of(context).size.width * 0.1),
         width: MediaQuery.of(context).size.width * 0.8,
-        height: 90,
+        height: height*0.138,
         decoration: BoxDecoration(
           color: Colors.pink.withOpacity(0.3),
           // borderRadius:BorderRadius.circular(20)
@@ -59,70 +57,68 @@ class PostUi extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topRight,
-              child: 
-              
-             
-                 Column(
-                   children: [
-                     GestureDetector(
-                      onTap: (() {
-                        Provider.of<postsProvider>(context,listen: false).deletePost(id);
-                      }),
-                       child: Container(
-                        margin: EdgeInsets.only(right: 10, top: 10),
-                        height: 30,
-                        width: 30,
-                        decoration:
-                            BoxDecoration(shape: BoxShape.circle, color: Colors.pink),
-                        child: Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                                     ),
-                     ),
-                      GestureDetector(
-                      onTap: (() {
-                        updatePost(context, id);
-                        
-                      }),
-                       child: Container(
-                        margin: EdgeInsets.only(right: 10, top: 10,bottom: 10),
-                        height: 30,
-                        width: 30,
-                        decoration:
-                            BoxDecoration(shape: BoxShape.circle, color: Colors.pink),
-                        child: Icon(
-                          Icons.update,
-                          color: Colors.white,
-                          size: 25,
-                        ),
-                                     ),
-                     ),
-
-                   ],
-                 ),
-              
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: (() {
+                      Provider.of<postsProvider>(context, listen: false)
+                          .deletePost(id);
+                    }),
+                    child: Container(
+                      margin: EdgeInsets.only(right: width*0.02, top: height*0.02),
+                      height: height*0.043,
+                      width: width*0.09,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.pink),
+                      child: Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: (() {
+                      updatePost(context, id);
+                    }),
+                    child: Container(
+                      margin: EdgeInsets.only(right: width*0.02, top: height*0.014, bottom: height*0.014),
+                      height: height*0.043,
+                      width: width*0.09,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.pink),
+                      child: Icon(
+                        Icons.update,
+                        color: Colors.white,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             Align(
               alignment: Alignment.topCenter,
               child: Container(
-                margin: EdgeInsets.only(top: 8),
-                height: 50,
-                width: 180,
+                margin: EdgeInsets.only(top: height*0.011),
+                height: height*0.073,
+                width: width*0.43,
                 child: Text(
                   this.title,
                   style:
-                      TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                      TextStyle(fontWeight: FontWeight.bold, 
+                      fontSize: 
+                      15
+                      ,color: Colors.red.withOpacity(0.99)),
                 ),
               ),
             ),
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-                padding: EdgeInsets.only(top: 30, left: 8),
-                height: 50,
-                width: 300,
+                padding: EdgeInsets.only(top: height*0.043, left: width*0.02),
+                height: height*0.073,
+                width: width*0.73,
                 child: Text(
                   '${this.preview}...',
                   style: TextStyle(fontSize: 15),
