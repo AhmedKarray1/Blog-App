@@ -4,7 +4,7 @@ import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:test_technique1/models/comment.dart';
-import 'package:test_technique1/Providers/post.dart';
+import 'package:test_technique1/models/post.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:tuple/tuple.dart';
@@ -134,8 +134,8 @@ class postsProvider with ChangeNotifier {
       }
     }
    
-
     notifyListeners();
+  
   }
 
   List<Post> get savedposts {

@@ -50,9 +50,12 @@ class PostUi extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.8,
         height: height*0.138,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          
           color: Colors.pink.withOpacity(0.3),
           // borderRadius:BorderRadius.circular(20)
         ),
+        
         child: Stack(
           children: [
             Align(
@@ -109,7 +112,7 @@ class PostUi extends StatelessWidget {
                       TextStyle(fontWeight: FontWeight.bold, 
                       fontSize: 
                       15
-                      ,color: Colors.red.withOpacity(0.99)),
+                      ,color:Colors.pink),
                 ),
               ),
             ),

@@ -48,11 +48,13 @@ class _MainScreenState extends State<MainScreen> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.article),
+                      Icon(Icons.article,size: 30,),
                       SizedBox(
                         width: 20,
                       ),
-                      Text("Blog App"),
+                      Text("Blog App",style: TextStyle(
+                        fontSize: 26,fontWeight: FontWeight.bold
+                       ),),
                     ],
                   ),
                   bottom: TabBar(tabs: [
@@ -69,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
                   ]),
                 ),
                 body: TabBarView(children: [
-                  OfflinePostListScreen(),
+                  OfflinePostListScreen(loadedPosts.savedposts),
                   OriginalPostListScreen(),
                 ])),
           );

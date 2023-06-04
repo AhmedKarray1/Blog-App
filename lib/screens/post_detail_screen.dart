@@ -11,6 +11,9 @@ class PostDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
+    
     final posts = Provider.of<postsProvider>(context, listen: false);
 
     final routeArgs =
@@ -19,7 +22,7 @@ class PostDetailScreen extends StatelessWidget {
     final postTitle = routeArgs['title'];
     final postBody = routeArgs['body'];
     final comments = routeArgs['comments'] as List;
-    print(postTitle);
+    
 
     return Scaffold(
         appBar: AppBar(
@@ -29,8 +32,8 @@ class PostDetailScreen extends StatelessWidget {
         body: Consumer<postsProvider>(
           builder: (context, value, child) => Column(children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.25,
-              width: MediaQuery.of(context).size.width * 0.8,
+              height: height * 0.25,
+              width:width * 0.8,
               margin: EdgeInsets.symmetric(
                   vertical: 20,
                   horizontal: MediaQuery.of(context).size.width * 0.1),
@@ -43,8 +46,8 @@ class PostDetailScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                            height: 40,
-                            width: 250,
+                            height: height*0.058,
+                            width: width*0.6,
                             margin: EdgeInsets.only(top: 20, left: 20),
                             child: Text(
                               postTitle,
@@ -67,8 +70,8 @@ class PostDetailScreen extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: Colors.pink,
                             ),
-                            height: 40,
-                            width: 40,
+                            height: height*0.058,
+                            width: width*0.09,
                             child: posts.posts
                                     .firstWhere((post) => post.id == postId)
                                     .isSaved

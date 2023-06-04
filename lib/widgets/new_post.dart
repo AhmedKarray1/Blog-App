@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/post.dart';
+import 'package:test_technique1/models/post.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 
 class NewPost extends StatelessWidget {
@@ -55,7 +55,13 @@ class NewPost extends StatelessWidget {
                 onSubmitted: (_) => _submitData(context,id),
               ),
               TextField(
-                decoration: InputDecoration(labelText: "body"),
+                decoration: InputDecoration(
+                  labelText: 'Body:',
+                  labelStyle: TextStyle(color: Colors.pink,fontSize: 23,fontWeight: FontWeight.bold) ,
+                  
+
+
+                ),
                 controller: _bodycontroller,
                 onSubmitted: (_) => _submitData(context,id),
               ),

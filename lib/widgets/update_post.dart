@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
-import 'package:test_technique1/Providers/post.dart';
+import 'package:test_technique1/models/post.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/models/comment.dart';
 
@@ -18,6 +18,7 @@ class _UpdatePostState extends State<UpdatePost> {
     'id': null,
     'title': '',
     'body': '',
+
   };
   TextEditingController titleController = TextEditingController();
 
@@ -72,14 +73,24 @@ class _UpdatePostState extends State<UpdatePost> {
             children: [
               TextField(
                 decoration: InputDecoration(
-                  labelText: 'title',
+                  labelText: 'Title:',
+                  labelStyle: TextStyle(color: Colors.pink,fontSize: 23,fontWeight: FontWeight.bold) ,
+                  
+
+
                 ),
                 controller: titleController,
                 onSubmitted: (_) => _submitData(
                     context, widget.id, posts.findById(widget.id).comments),
               ),
               TextField(
-                decoration: InputDecoration(labelText: "body"),
+                decoration: InputDecoration(
+                  labelText: 'Body:',
+                  labelStyle: TextStyle(color: Colors.pink,fontSize: 23,fontWeight: FontWeight.bold) ,
+                  
+
+
+                ),
                 controller: bodyController,
                 onSubmitted: (_) => _submitData(
                     context, widget.id, posts.findById(widget.id).comments),

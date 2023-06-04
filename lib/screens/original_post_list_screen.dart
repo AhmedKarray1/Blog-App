@@ -23,15 +23,17 @@ class OriginalPostListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loadedPosts = Provider.of<postsProvider>(context);
-    
+    print(loadedPosts.savedposts);
+    var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(children: [
         GestureDetector(
           onTap: () => addNewPost(context,loadedPosts.posts.length),
           child: Container(
-            margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.1),
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: 90,
+            margin: EdgeInsets.all(width * 0.1),
+            width: width * 0.8,
+            height: height*0.13,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(50),
@@ -45,8 +47,8 @@ class OriginalPostListScreen extends StatelessWidget {
                 children: [
                   Container(
                     margin: EdgeInsets.all(20),
-                    height: 50,
-                    width: 50,
+                    height: height*0.073,
+                    width: width*0.12,
                     decoration: BoxDecoration(
                         shape: BoxShape.circle, color: Colors.white),
                     child: Icon(
@@ -84,11 +86,12 @@ class OriginalPostListScreen extends StatelessWidget {
                       comments: postsProvider.posts[index].comments,
                       preview: postsProvider.posts[index].body.substring(0, 20),
                     ),
-                  )),
+                  )
+                  ),
               itemCount: postsProvider.posts.length,
             ),
           ),
-        )
+        ),
       ]),
     );
   }

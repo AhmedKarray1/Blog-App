@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:test_technique1/models/post.dart';
 
 class SplashScreen extends StatefulWidget {
+
+
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -44,6 +48,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+      var height=MediaQuery.of(context).size.height;
+    var width=MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.pink,
       body: Center(
@@ -57,9 +63,9 @@ class _SplashScreenState extends State<SplashScreen>
                   opacity: _opacityAnimation.value, 
                   duration: Duration(milliseconds: 500),
                   child: AnimatedContainer(
-                    height: MediaQuery.of(context).size.height *
+                    height: height *
                         _sizeAnimation.value, 
-                    width: MediaQuery.of(context).size.width *
+                    width:width *
                         _sizeAnimation.value, 
                     duration: Duration(seconds: 1),
                     child: Stack(
@@ -68,7 +74,7 @@ class _SplashScreenState extends State<SplashScreen>
                           child: Icon(
                             Icons.article,
                             color: Colors.white,
-                            size: MediaQuery.of(context).size.height * 0.30,
+                            size: height * 0.30,
                           ),
                         ),
                       ],
@@ -80,8 +86,8 @@ class _SplashScreenState extends State<SplashScreen>
             Center(
               child: Container(
                   margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.1,
-                      horizontal: MediaQuery.of(context).size.height * 0.05),
+                      vertical:height * 0.1,
+                      horizontal: height * 0.05),
                   child: Text(
                     "Welcome to the Blog App",
                     style: TextStyle(
