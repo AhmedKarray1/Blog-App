@@ -5,13 +5,13 @@ import 'package:test_technique1/models/post.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 
 class NewPost extends StatelessWidget {
-  final int id;
-  NewPost(this.id);
+  // final int id;
+  // NewPost(this.id);
   final _titlecontroller = TextEditingController();
 
   final _bodycontroller = TextEditingController();
 
-  void _submitData(BuildContext context,int id) {
+  void _submitData(BuildContext context) async {
    (context);
     final enteredTitle = _titlecontroller.text;
     final enteredBody = _bodycontroller.text;
@@ -19,10 +19,12 @@ class NewPost extends StatelessWidget {
       return;
     }
     var newPost =
-        Post(id:id , title: enteredTitle, body: enteredBody, comments: []);
-    Navigator.of(context).pop();
+        Post(id:0 , title: enteredTitle, body: enteredBody, comments: []);
+       Navigator.of(context).pop();
+       await  Provider.of<postsProvider>(context, listen: false).createPost(newPost);
+    
 
-    Provider.of<postsProvider>(context, listen: false).createPost(newPost);
+    
   }
 
   @override
@@ -52,7 +54,7 @@ class NewPost extends StatelessWidget {
 
                 ),
                 controller: _titlecontroller,
-                onSubmitted: (_) => _submitData(context,id),
+                onSubmitted: (_) => _submitData(context),
               ),
               TextField(
                 decoration: InputDecoration(
@@ -63,10 +65,10 @@ class NewPost extends StatelessWidget {
 
                 ),
                 controller: _bodycontroller,
-                onSubmitted: (_) => _submitData(context,id),
+                onSubmitted: (_) => _submitData(context),
               ),
               ElevatedButton(
-                  onPressed: () => _submitData(context,id),
+                  onPressed: () => _submitData(context),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.pink),
                   ),

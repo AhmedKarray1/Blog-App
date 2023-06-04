@@ -11,9 +11,9 @@ class PostDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      var height=MediaQuery.of(context).size.height;
-    var width=MediaQuery.of(context).size.width;
-    
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
+
     final posts = Provider.of<postsProvider>(context, listen: false);
 
     final routeArgs =
@@ -22,7 +22,6 @@ class PostDetailScreen extends StatelessWidget {
     final postTitle = routeArgs['title'];
     final postBody = routeArgs['body'];
     final comments = routeArgs['comments'] as List;
-    
 
     return Scaffold(
         appBar: AppBar(
@@ -33,7 +32,7 @@ class PostDetailScreen extends StatelessWidget {
           builder: (context, value, child) => Column(children: [
             Container(
               height: height * 0.25,
-              width:width * 0.8,
+              width: width * 0.8,
               margin: EdgeInsets.symmetric(
                   vertical: 20,
                   horizontal: MediaQuery.of(context).size.width * 0.1),
@@ -46,23 +45,20 @@ class PostDetailScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                            height: height*0.058,
-                            width: width*0.6,
+                            height: height * 0.058,
+                            width: width * 0.6,
                             margin: EdgeInsets.only(top: 20, left: 20),
                             child: Text(
                               postTitle,
                               style: TextStyle(
-                                  color: Colors.red.withOpacity(0.99
-                                  ),
+                                  color: Colors.red.withOpacity(0.99),
                                   fontWeight: FontWeight.bold,
                                   fontSize: 15),
                             )),
                         GestureDetector(
                           onTap: () {
                             posts.toggleSavedStatus(postId);
-                            posts.setPosts(postTitle, postBody);
-
-                           
+                            posts.setPosts();
                           },
                           child: Container(
                             margin: EdgeInsets.only(top: 10, right: 10),
@@ -70,8 +66,8 @@ class PostDetailScreen extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: Colors.pink,
                             ),
-                            height: height*0.058,
-                            width: width*0.09,
+                            height: height * 0.058,
+                            width: width * 0.09,
                             child: posts.posts
                                     .firstWhere((post) => post.id == postId)
                                     .isSaved
@@ -100,7 +96,7 @@ class PostDetailScreen extends StatelessWidget {
                 ],
               ),
             ),
-            ((comments == null) || (comments == []))
+            ((comments == null) || (comments.isEmpty))
                 ? Center(child: Text("no comment yet"))
                 : Column(
                     children: [

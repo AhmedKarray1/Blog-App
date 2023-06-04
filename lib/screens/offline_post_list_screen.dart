@@ -5,18 +5,25 @@ import 'package:test_technique1/Providers/posts_provider.dart';
 import 'package:test_technique1/models/post.dart';
 import 'package:test_technique1/widgets/post_ui.dart';
 
-class OfflinePostListScreen extends StatelessWidget {
+class OfflinePostListScreen extends StatefulWidget {
   
-  List<Post> savedposts;
-  OfflinePostListScreen(this.savedposts);
+  
 
   @override
+  State<OfflinePostListScreen> createState() => _OfflinePostListScreenState();
+}
+
+class _OfflinePostListScreenState extends State<OfflinePostListScreen> {
+  @override
   Widget build(BuildContext context) {
+   final savedposts=Provider.of<postsProvider>(context,listen: false).local_saved_posts;
+
+    
     
     return Scaffold(
       
       
-      body:((savedposts ==null)||(savedposts==[]))?Center(child: Text("no saved posts!"),):
+      body:(savedposts==[])?Center(child: Text("no saved posts!"),):
       
       
         ListView.builder(itemBuilder: ((context, index) =>PostUi(id: savedposts[index].id, title:savedposts[index].title, body:savedposts[index].body, comments: savedposts[index].comments, preview: savedposts[index].body.substring(0,20))

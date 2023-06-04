@@ -12,11 +12,11 @@ class OriginalPostListScreen extends StatelessWidget {
 
   static const routeName = '/originalpostListScreen';
 
-  void addNewPost(BuildContext ctx,int id) {
+  void addNewPost(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-          return NewPost(id);
+          return NewPost();
         });
   }
 
@@ -29,7 +29,7 @@ class OriginalPostListScreen extends StatelessWidget {
     return Scaffold(
       body: Column(children: [
         GestureDetector(
-          onTap: () => addNewPost(context,loadedPosts.posts.length),
+          onTap: () => addNewPost(context),
           child: Container(
             margin: EdgeInsets.all(width * 0.1),
             width: width * 0.8,

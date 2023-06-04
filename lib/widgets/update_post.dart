@@ -82,6 +82,8 @@ class _UpdatePostState extends State<UpdatePost> {
                 controller: titleController,
                 onSubmitted: (_) => _submitData(
                     context, widget.id, posts.findById(widget.id).comments),
+              
+              
               ),
               TextField(
                 decoration: InputDecoration(

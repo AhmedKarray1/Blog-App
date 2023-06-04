@@ -82,17 +82,16 @@ class postsProvider with ChangeNotifier {
     try {
       print("create1");
       final newPost = Post(
-          id: _posts.length, title: post.title, body: post.body, comments: []);
-          _posts.add(newPost);
+          id: _posts.length+1, title: post.title, body: post.body, comments: []);
+      _posts.add(newPost);
       final response = await http.post(url,
-          body: json.encode(
-              {'id': post.id, 'title': post.title, 'body': post.body,'comments':post.comments}));
+          body: json.encode({
+            'id': post.id,
+            'title': post.title,
+            'body': post.body,
+            'comments': post.comments
+          }));
       final responseData = json.decode(response.body);
-
-
-
-      
-      
 
       print(_posts.length);
       notifyListeners();
@@ -106,6 +105,7 @@ class postsProvider with ChangeNotifier {
     final postIndex = _posts.indexWhere((post) => post.id == id);
     if (postIndex >= 0) {
       _posts[postIndex] = newPost;
+      notifyListeners();
       final url = Uri.parse("https://jsonplaceholder.typicode.com/posts/$id");
 
       await http.patch(url,
@@ -114,8 +114,6 @@ class postsProvider with ChangeNotifier {
             'title': newPost.title,
             'Body': newPost.body,
           }));
-
-      notifyListeners();
     } else {
       print('not existing post');
     }
@@ -133,49 +131,65 @@ class postsProvider with ChangeNotifier {
         _savedposts.remove(_posts[indexPost]);
       }
     }
-   
+
     notifyListeners();
-  
   }
 
   List<Post> get savedposts {
     return [..._savedposts];
   }
 
-  Future<void> setPosts(String title, String body) async {
-    List<String> titleSavedPost = [];
+  Future<void> setPosts() async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+     
+    List<String> titleSavedPost =prefs.getStringList('title')??[] ;
+List<String> bodySavedPost = prefs.getStringList('body')??[];
+await prefs.remove('title');
+    await prefs.remove('body');
 
     for (var post in _savedposts) {
       titleSavedPost.add(post.title);
     }
-    titleSavedPost.add(title);
+    
 
-    List<String> bodySavedPost = [];
+    
 
-    for (var post in savedposts) {
+    for (var post in _savedposts) {
       bodySavedPost.add(post.body);
+
     }
-    bodySavedPost.add(body);
-    print("ahmedfinn");
-    SharedPreferences pref_title = await SharedPreferences.getInstance();
-
-    pref_title.setStringList('title', titleSavedPost);
-    SharedPreferences pref_body = await SharedPreferences.getInstance();
-
-    pref_body.setStringList('body', bodySavedPost);
-
    
+    
+   
+
+    
+
+    await prefs.setStringList('title', titleSavedPost);
+   
+
+    await prefs.setStringList('body', bodySavedPost);
+
     notifyListeners();
   }
 
-  List<dynamic> local_saved_posts = [];
+
+
+  List<Post> local_saved_posts = [];
   Future<void> loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var titles = prefs.getStringList('title');
     var bodies = prefs.getStringList('body');
+    if ((titles!=null)&&(bodies!=null))
+    {
+      for (var i=0;i<titles.length;i++)
+      {local_saved_posts.add(Post(id:i , title: titles[i], body:bodies[i], comments: []));
+}
+    }
     
+
     notifyListeners();
   }
+
 
   Post findById(int id) {
     return _posts.firstWhere((post) => post.id == id);

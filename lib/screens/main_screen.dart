@@ -15,12 +15,13 @@ class _MainScreenState extends State<MainScreen> {
   var _isLoading = false;
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies  ()async {
     if (_isInit) {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<postsProvider>(context).fetchPosts().then((value) {
+      await Provider.of<postsProvider>(context,listen: false).loadData();
+      Provider.of<postsProvider>(context,listen: false).fetchPosts().then((value) {
         setState(() {
           _isLoading = false;
         });
@@ -71,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                   ]),
                 ),
                 body: TabBarView(children: [
-                  OfflinePostListScreen(loadedPosts.savedposts),
+                  OfflinePostListScreen(),
                   OriginalPostListScreen(),
                 ])),
           );
