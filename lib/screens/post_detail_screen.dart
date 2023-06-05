@@ -91,7 +91,7 @@ class PostDetailScreen extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 child: Container(
                     margin: EdgeInsets.only(right: 20, left: 5, top: 25),
                     padding: EdgeInsets.all(20),
