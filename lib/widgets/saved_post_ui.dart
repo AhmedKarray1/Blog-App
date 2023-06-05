@@ -21,7 +21,7 @@ class SavedPostUi extends StatelessWidget {
     required this.preview,
   });
 
-  void updatePost(BuildContext ctx, int id,String title) {
+  void updatePost(BuildContext ctx, int id, String title) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
@@ -64,12 +64,12 @@ class SavedPostUi extends StatelessWidget {
                   GestureDetector(
                     onTap: (() {
                       Provider.of<PostsProvider>(context, listen: false)
-                          .deleteSavedPost(id,title,body);
+                          .deleteSavedPost(id, title, body);
                     }),
                     child: Container(
                       margin: EdgeInsets.only(
                           right: width * 0.02, top: height * 0.02),
-                      height: height*0.087,
+                      height: height * 0.087,
                       // height * 0.043,
                       width: width * 0.09,
                       decoration: BoxDecoration(
@@ -81,7 +81,6 @@ class SavedPostUi extends StatelessWidget {
                       ),
                     ),
                   ),
-                
                 ],
               ),
             ),

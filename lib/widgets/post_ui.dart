@@ -21,7 +21,7 @@ class PostUi extends StatelessWidget {
     required this.preview,
   });
 
-  void updatePost(BuildContext ctx, int id,String title) {
+  void updatePost(BuildContext ctx, int id, String title) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
@@ -82,7 +82,7 @@ class PostUi extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: (() {
-                      updatePost(context, id,title);
+                      updatePost(context, id, title);
                     }),
                     child: Container(
                       margin: EdgeInsets.only(
@@ -109,12 +109,14 @@ class PostUi extends StatelessWidget {
                 margin: EdgeInsets.only(top: height * 0.011),
                 height: height * 0.073,
                 width: width * 0.43,
-                child: Text(
-                  this.title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.pink),
+                child: SingleChildScrollView(
+                  child: Text(
+                    this.title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.pink),
+                  ),
                 ),
               ),
             ),

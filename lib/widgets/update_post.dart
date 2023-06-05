@@ -7,7 +7,7 @@ import 'package:test_technique1/models/comment.dart';
 
 class UpdatePost extends StatefulWidget {
   final int id;
-  
+
   UpdatePost(this.id);
 
   @override
@@ -27,16 +27,18 @@ class _UpdatePostState extends State<UpdatePost> {
   @override
 // var _isInit=true;
   void didChangeDependencies() {
-    final editedPost = Provider.of<PostsProvider>(context).findById(widget.id);
-    Map<String, dynamic> initValues = {
-      'id': editedPost.id,
-      'title': editedPost.title,
-      'body': editedPost.body,
-      'comments': editedPost.comments
-    };
-    titleController =
-        TextEditingController(text: initValues['title'].toString());
-    bodyController = TextEditingController(text: initValues['body'].toString());
+    // final editedPost = Provider.of<PostsProvider>(context).findById(widget.id);
+    // Map<String, dynamic> initValues = {
+    //   'id': editedPost.id,
+    //   'title': editedPost.title,
+    //   'body': editedPost.body,
+    //   'comments': editedPost.comments
+    // };
+    // titleController =
+    //     TextEditingController(text: initValues['title'].toString());
+    // bodyController = TextEditingController(text: initValues['body'].toString());
+    //    titleController.text = initValues['title'].toString();
+    // bodyController.text = initValues['body'].toString();
 
     super.didChangeDependencies();
   }
@@ -80,10 +82,11 @@ class _UpdatePostState extends State<UpdatePost> {
                       fontWeight: FontWeight.bold),
                 ),
                 controller: titleController,
-                onSubmitted: (_) => _submitData(
-                    context, widget.id, posts.findById(widget.id).comments),
+                //   onSubmitted: (_) => _submitData(
+                //       context, widget.id, posts.findById(widget.id).comments),
               ),
               TextField(
+                // textInputAction:TextInputAction.next ,
                 decoration: InputDecoration(
                   labelText: 'Body:',
                   labelStyle: TextStyle(

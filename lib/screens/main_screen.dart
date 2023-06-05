@@ -15,8 +15,6 @@ class _MainScreenState extends State<MainScreen> {
   var _isInit = true;
   var _isLoading = false;
   @override
- 
-
   @override
   void didChangeDependencies() async {
     if (_isInit) {
@@ -28,24 +26,19 @@ class _MainScreenState extends State<MainScreen> {
       await postsprovider.loadData();
       await postsprovider.checkConnectivity();
 
-      if ((postsprovider
-              .connectivityResult ==
-          ConnectivityResult.wifi)||(postsprovider
-              .connectivityResult ==
-          ConnectivityResult.mobile)) {
-      Provider.of<PostsProvider>(context, listen: false)
-          .fetchPosts()
-          .then((value) {
+      if ((postsprovider.connectivityResult == ConnectivityResult.wifi) ||
+          (postsprovider.connectivityResult == ConnectivityResult.mobile)) {
+        Provider.of<PostsProvider>(context, listen: false)
+            .fetchPosts()
+            .then((value) {
+          setState(() {
+            _isLoading = false;
+          });
+        });
+      } else {
         setState(() {
           _isLoading = false;
         });
-      });
-      }
-      else{
-        setState(() {
-        _isLoading = false;
-
-      });
       }
     }
 
@@ -56,6 +49,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final savedposts = Provider.of<PostsProvider>(context).local_saved_posts;
+
     return _isLoading
         ? SplashScreen()
         : DefaultTabController(
@@ -81,23 +76,26 @@ class _MainScreenState extends State<MainScreen> {
                     ],
                   ),
                   bottom: TabBar(tabs: [
-                    
                     Icon(
                       Icons.wifi,
                       color: Colors.white,
-                      size: 50,
+                      size: 40,
                     ),
-                    Icon(
-                      Icons.wifi_off_sharp,
-                      color: Colors.white,
-                      size: 50,
+                    Column(
+                      children: [
+                        Icon(
+                          Icons.wifi_off_sharp,
+                          color: Colors.white,
+                          size: 40,
+                        ),
+                        Text(savedposts.length.toString())
+                      ],
                     ),
                   ]),
                 ),
                 body: TabBarView(children: [
-                   OriginalPostListScreen(),
+                  OriginalPostListScreen(),
                   OfflinePostListScreen(),
-                 
                 ])),
           );
   }
