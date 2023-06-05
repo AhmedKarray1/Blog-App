@@ -75,31 +75,25 @@ class PostDetailScreen extends StatelessWidget {
                         ),
                         height: height * 0.058,
                         width: width * 0.09,
-                        child:
-                            //  postsProvider.local_saved_posts.any((savedPost) => savedPost.title==postTitle)
-
-                            // postsProvider.posts
-                            //         .firstWhere((post) => post.id == postId)
-                            //         .isSaved
-
-                            postsProvider.isPostSaved(
-                                    postTitle, postsProvider.local_saved_posts)
-                                ? Icon(
-                                    Icons.bookmark,
-                                    color: Colors.black,
-                                  )
-                                : Icon(
-                                    Icons.bookmark,
-                                    color: Colors.white,
-                                  ),
+                        child: postsProvider.isPostSaved(
+                                postTitle, postsProvider.local_saved_posts)
+                            ? Icon(
+                                Icons.bookmark,
+                                color: Colors.black,
+                              )
+                            : Icon(
+                                Icons.bookmark,
+                                color: Colors.white,
+                              ),
                       ),
                     ),
                   ],
                 ),
               ),
               Align(
-                alignment: Alignment.bottomCenter,
+                alignment: Alignment.center,
                 child: Container(
+                    margin: EdgeInsets.only(right: 20, left: 5, top: 25),
                     padding: EdgeInsets.all(20),
                     child: SingleChildScrollView(
                       child: Text(

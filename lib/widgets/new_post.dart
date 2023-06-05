@@ -5,8 +5,6 @@ import 'package:test_technique1/models/post.dart';
 import 'package:test_technique1/Providers/posts_provider.dart';
 
 class NewPost extends StatelessWidget {
-  // final int id;
-  // NewPost(this.id);
   final _titlecontroller = TextEditingController();
 
   final _bodycontroller = TextEditingController();

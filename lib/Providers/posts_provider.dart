@@ -137,6 +137,7 @@ class PostsProvider with ChangeNotifier {
   void toggleSavedStatus(String title) {
     var indexPost = _posts.indexWhere((post) => post.title == title);
     var postTitle = _posts[indexPost].title;
+
     if (isPostSaved(postTitle, local_saved_posts)) {
       _posts[indexPost].isSaved = false;
     } else {
@@ -159,7 +160,6 @@ class PostsProvider with ChangeNotifier {
             .removeWhere((post) => post.title == _posts[indexPost].title);
       }
     }
-    // local_saved_posts=_savedposts;
 
     notifyListeners();
   }
@@ -179,14 +179,6 @@ class PostsProvider with ChangeNotifier {
     await prefs.remove('body');
     titleSavedPost.add(_savedposts[_savedposts.length - 1].title);
     bodySavedPost.add(_savedposts[_savedposts.length - 1].body);
-
-    // for (var post in _savedposts) {
-    //   titleSavedPost.add(post.title);
-    // }
-
-    // for (var post in _savedposts) {
-    //   bodySavedPost.add(post.body);
-    // }
 
     await prefs.setStringList('title', titleSavedPost);
 

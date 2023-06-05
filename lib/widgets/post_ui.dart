@@ -121,7 +121,7 @@ class PostUi extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.bottomCenter,
               child: Container(
                 padding:
                     EdgeInsets.only(top: height * 0.043, left: width * 0.02),

@@ -51,9 +51,7 @@ class SavedPostUi extends StatelessWidget {
         height: height * 0.138,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-
           color: Colors.pink.withOpacity(0.3),
-          // borderRadius:BorderRadius.circular(20)
         ),
         child: Stack(
           children: [
@@ -70,7 +68,6 @@ class SavedPostUi extends StatelessWidget {
                       margin: EdgeInsets.only(
                           right: width * 0.02, top: height * 0.02),
                       height: height * 0.087,
-                      // height * 0.043,
                       width: width * 0.09,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle, color: Colors.pink),
