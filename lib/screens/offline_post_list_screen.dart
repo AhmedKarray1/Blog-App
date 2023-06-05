@@ -19,9 +19,12 @@ class _OfflinePostListScreenState extends State<OfflinePostListScreen> {
         Provider.of<PostsProvider>(context, listen: false).local_saved_posts;
 
     return Scaffold(
-      body: (savedposts == [])
+      body: (savedposts.isEmpty)
           ? Center(
-              child: Text("no saved posts!"),
+              child: Text("no saved posts !",style: TextStyle(
+                          color: Colors.pink,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold)),
             )
           : ListView.builder(
               itemBuilder: ((context, index) => SavedPostUi(

@@ -81,21 +81,23 @@ class _MainScreenState extends State<MainScreen> {
                     ],
                   ),
                   bottom: TabBar(tabs: [
+                    
                     Icon(
-                      Icons.wifi_off_sharp,
+                      Icons.wifi,
                       color: Colors.white,
                       size: 50,
                     ),
                     Icon(
-                      Icons.wifi,
+                      Icons.wifi_off_sharp,
                       color: Colors.white,
                       size: 50,
                     ),
                   ]),
                 ),
                 body: TabBarView(children: [
+                   OriginalPostListScreen(),
                   OfflinePostListScreen(),
-                  OriginalPostListScreen(),
+                 
                 ])),
           );
   }

@@ -25,7 +25,7 @@ class PostDetailScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Post Detail"),
+          title: Text("Post Detail ",style: TextStyle(fontWeight: FontWeight.bold),),
           backgroundColor: Colors.pink,
         ),
         body: Consumer<PostsProvider>(
@@ -48,12 +48,14 @@ class PostDetailScreen extends StatelessWidget {
                             height: height * 0.058,
                             width: width * 0.6,
                             margin: EdgeInsets.only(top: 20, left: 20),
-                            child: Text(
-                              postTitle,
-                              style: TextStyle(
-                                  color: Colors.pink.withOpacity(0.99),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
+                            child: SingleChildScrollView(
+                              child: Text(
+                                postTitle,
+                                style: TextStyle(
+                                    color: Colors.pink.withOpacity(0.99),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
                             )),
                         GestureDetector(
                           onTap: () {
@@ -88,9 +90,11 @@ class PostDetailScreen extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                         padding: EdgeInsets.all(20),
-                        child: Text(
-                          postBody,
-                          style: TextStyle(fontSize: 13),
+                        child: SingleChildScrollView(
+                          child: Text(
+                            postBody,
+                            style: TextStyle(fontSize: 13),
+                          ),
                         )),
                   ),
                 ],

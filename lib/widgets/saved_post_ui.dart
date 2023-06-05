@@ -64,7 +64,7 @@ class SavedPostUi extends StatelessWidget {
                   GestureDetector(
                     onTap: (() {
                       Provider.of<PostsProvider>(context, listen: false)
-                          .deletePost(id);
+                          .deleteSavedPost(id,title,body);
                     }),
                     child: Container(
                       margin: EdgeInsets.only(

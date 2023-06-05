@@ -39,7 +39,10 @@ class _OriginalPostListScreenState extends State<OriginalPostListScreen> {
          (loadedPosts.connectivityResult==ConnectivityResult.none)
             ? 
          Center(
-            child: Text("you are offlline"),
+            child: Text("you are offline !",style: TextStyle(
+                          color: Colors.pink,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold),),
           ):
           Column(children: [
       GestureDetector(
